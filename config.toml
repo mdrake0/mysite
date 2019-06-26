@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://mattcdrake.com"
 languageCode = "en-us"
 theme = "cocoa"
 contentdir = "content"
