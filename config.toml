@@ -1,0 +1,43 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+theme = "cocoa"
+contentdir = "content"
+publishdir = "public"
+author = "Matt Drake"
+title = "Matt Drake"
+
+[permalinks]
+blog = "blog/:slug/"
+
+[[menu.main]]
+name = "Blog"
+weight = -120
+identifier = "blog"
+url = "/blog/"
+
+[[menu.main]]
+name = "About"
+weight = -110
+identifier = "about"
+url = "/fixed/about"
+
+[[menu.main]]
+name = "Projects"
+weight = -100
+identifier = "projects"
+url = "/projects/"
+
+[[menu.main]]
+name = "Reading"
+weight = -90
+identifier = "reading"
+url = "/fixed/reading"
+
+[params]
+latestpostscount = 20
+author = "Matt Drake"
+dateform = "2 Jan 2006"
+github = "//github.com/mattcdrake"
+twitter = "//twitter.com/cypherbrain"
+
+avatar = "img/avatar.jpg"
