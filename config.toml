@@ -28,7 +28,7 @@ identifier = "projects"
 url = "/projects/"
 
 [[menu.main]]
-name = "Reading"
+name = "Reading List"
 weight = -90
 identifier = "reading"
 url = "/fixed/reading"
@@ -38,6 +38,6 @@ latestpostscount = 20
 author = "Matt Drake"
 dateform = "2 Jan 2006"
 github = "//github.com/mattcdrake"
-twitter = "//twitter.com/cypherbrain"
+twitter = "//twitter.com/matt_c_drake"
 
 avatar = "img/avatar.jpg"
