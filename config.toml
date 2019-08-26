@@ -41,3 +41,4 @@ github = "//github.com/mattcdrake"
 twitter = "//twitter.com/matt_c_drake"
 
 avatar = "img/avatar.jpg"
+noshowreadtime = true
