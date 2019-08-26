@@ -28,17 +28,20 @@ identifier = "projects"
 url = "/projects/"
 
 [[menu.main]]
-name = "Reading List"
+name = "Bookshelf"
 weight = -90
-identifier = "reading"
-url = "/fixed/reading"
+identifier = "bookshelf"
+url = "/fixed/bookshelf"
+
+[[menu.main]]
+name = "Twitter"
+weight = -80
+url = "https://twitter.com/matt_c_drake"
 
 [params]
 latestpostscount = 20
 author = "Matt Drake"
 dateform = "2 Jan 2006"
-github = "//github.com/mattcdrake"
-twitter = "//twitter.com/matt_c_drake"
 
 avatar = "img/avatar.jpg"
 noshowreadtime = true
