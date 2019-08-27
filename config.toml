@@ -22,10 +22,10 @@ identifier = "about"
 url = "/fixed/about"
 
 [[menu.main]]
-name = "Projects"
+name = "Games"
 weight = -100
-identifier = "projects"
-url = "/projects/"
+identifier = "games"
+url = "/games/"
 
 [[menu.main]]
 name = "Bookshelf"
