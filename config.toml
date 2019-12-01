@@ -8,6 +8,7 @@ title = "Matt Drake"
 
 [permalinks]
 blog = "blog/:slug/"
+projects = "projects/:slug/"
 
 [[menu.main]]
 name = "Blog"
@@ -22,10 +23,10 @@ identifier = "about"
 url = "/fixed/about"
 
 [[menu.main]]
-name = "Games"
+name = "Projects"
 weight = -100
-identifier = "games"
-url = "/games/"
+identifier = "projects"
+url = "/projects/"
 
 [[menu.main]]
 name = "Bookshelf"
@@ -36,12 +37,13 @@ url = "/fixed/bookshelf"
 [[menu.main]]
 name = "Twitter"
 weight = -80
-url = "https://twitter.com/matt_c_drake"
+url = "https://twitter.com/mdrake__"
 
 [params]
 latestpostscount = 20
 author = "Matt Drake"
 dateform = "2 Jan 2006"
-
 avatar = "img/avatar.jpg"
 noshowreadtime = true
+github = "//github.com/mattcdrake"
+twitter = "//twitter.com/mdrake__"
