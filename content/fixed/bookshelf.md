@@ -12,6 +12,7 @@ starting this blog.
     Gerald Jay Sussman with Julie Sussman
 - _[Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/)_, Chris James
 - _Music Theory for Computer Musicians_, Michael Hewitt
+- _A Tour of C++_, Bjarne Stroustrup
 
 ### Finished and Recommend
 
