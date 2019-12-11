@@ -8,10 +8,8 @@ starting this blog.
 
 ### Currently Reading 
 
-- _Structure and Interpretation of Computer Programs_, Harold Ableson and 
-    Gerald Jay Sussman with Julie Sussman
-- _[Learn Go with Tests](https://quii.gitbook.io/learn-go-with-tests/)_, Chris James
 - _Music Theory for Computer Musicians_, Michael Hewitt
+- _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 
 ### Finished and Recommend
 
