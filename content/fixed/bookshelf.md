@@ -3,8 +3,7 @@ title: "My Bookshelf"
 date: 2019-06-26T19:37:37-04:00
 ---
 
-This list primarily (but not _strictly_) includes things that I've read since 
-starting this blog.
+This is a list of books that I've read since starting this website.
 
 ### Currently Reading 
 
