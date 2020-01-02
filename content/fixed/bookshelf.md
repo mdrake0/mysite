@@ -9,6 +9,7 @@ This is a list of books that I've read since starting this website.
 
 - _Music Theory for Computer Musicians_, Michael Hewitt
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
+- _The Lathe of Heaven_, Ursula Le Guin
 
 ### Finished and Recommend
 
