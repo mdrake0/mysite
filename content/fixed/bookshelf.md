@@ -7,9 +7,7 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading 
 
-- _Music Theory for Computer Musicians_, Michael Hewitt
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
-- _The Lathe of Heaven_, Ursula Le Guin
 
 ### Finished and Recommend
 
@@ -17,6 +15,7 @@ This is a list of books that I've read since starting this website.
 - _Circe_, Madeline Miller
 - _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
     Rob Walling
+- _The Lathe of Heaven_, Ursula Le Guin
 
 ### Finished and Don't Recommend
 
