@@ -22,4 +22,3 @@ This is a list of books that I've read since starting this website.
 ### Finished and Don't Recommend
 
 ### Didn't Finish and Don't Recommend
-
