@@ -5,10 +5,11 @@ date: 2019-06-26T19:37:37-04:00
 
 This is a list of books that I've read since starting this website.
 
-### Currently Reading 
+### Currently Reading
 
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 - _The Soul of a New Machine_, Tracy Kidder
+- _Shape Up: Stop Running in Circles and Ship Work that Matters_, Ryan Singer
 
 ### Finished and Recommend
 
@@ -16,7 +17,7 @@ This is a list of books that I've read since starting this website.
 - _Circe_, Madeline Miller
 - _Skin in the Game: Hidden Asymmetries in Daily Life_, Nassim Nicholas Taleb
 - _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
-    Rob Walling
+  Rob Walling
 - _The Lathe of Heaven_, Ursula Le Guin
 
 ### Finished and Don't Recommend
