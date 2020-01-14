@@ -7,7 +7,6 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 - _The Soul of a New Machine_, Tracy Kidder
 - _Shape Up: Stop Running in Circles and Ship Work that Matters_, Ryan Singer
 
@@ -19,6 +18,7 @@ This is a list of books that I've read since starting this website.
 - _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
   Rob Walling
 - _The Lathe of Heaven_, Ursula Le Guin
+- _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 
 ### Finished and Don't Recommend
 
