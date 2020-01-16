@@ -8,7 +8,6 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _The Soul of a New Machine_, Tracy Kidder
-- _Shape Up: Stop Running in Circles and Ship Work that Matters_, Ryan Singer
 
 ### Finished and Recommend
 
