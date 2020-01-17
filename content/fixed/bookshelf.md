@@ -7,10 +7,12 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _The Soul of a New Machine_, Tracy Kidder
+- _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
+- _The Works: Anatomy of a City_, Kate Ascher
 
 ### Finished and Recommend
 
+- _The Soul of a New Machine_, Tracy Kidder
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
 - _Skin in the Game: Hidden Asymmetries in Daily Life_, Nassim Nicholas Taleb
