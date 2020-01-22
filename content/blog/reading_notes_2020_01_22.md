@@ -1,5 +1,5 @@
 ---
-title: "Reading_notes_2020_01_22"
+title: "Reading Notes (December 2019 - January 2020)"
 date: 2020-01-22T16:46:05-05:00
 draft: false
 ---
