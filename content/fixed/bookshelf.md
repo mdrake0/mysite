@@ -8,7 +8,6 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
-- _The Works: Anatomy of a City_, Kate Ascher
 
 ### Finished and Recommend
 
