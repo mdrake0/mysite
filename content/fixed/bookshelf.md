@@ -7,7 +7,8 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
+- _A Tour of C++, Second Edition_, Bjarne Stroustrup
+- _Concrete Mathematics_, Graham, Knuth, Patashnik
 
 ### Finished and Recommend
 
@@ -22,5 +23,8 @@ This is a list of books that I've read since starting this website.
 
 ### Finished and Don't Recommend
 
-### Didn't Finish and Don't Recommend
+### Didn't Finish
+
+- _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
+
 
