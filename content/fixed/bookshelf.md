@@ -7,7 +7,6 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Concrete Mathematics_, Graham, Knuth, Patashnik
 - _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
 - _Structure and Interpretation of Computer Programs_, Abelson and Sussman
 - _Meditations_, Marcus Aurelius
