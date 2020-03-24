@@ -7,7 +7,8 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
+- _A Tour of C++_, Bjarne Stroustrup
+- _Game Coding Complete_, Mike McShaffry & David Graham
 - _Meditations_, Marcus Aurelius
 - _How to Win Friends and Influence People_, Dale Carnegie
 
