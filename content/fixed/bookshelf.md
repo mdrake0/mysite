@@ -10,7 +10,6 @@ This is a list of books that I've read since starting this website.
 - _A Tour of C++_, Bjarne Stroustrup
 - _Game Coding Complete_, Mike McShaffry & David Graham
 - _Meditations_, Marcus Aurelius
-- _How to Win Friends and Influence People_, Dale Carnegie
 
 ### Finished and Recommend
 
