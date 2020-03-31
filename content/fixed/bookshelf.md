@@ -7,7 +7,7 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Eloquent JavaScript, 3rd Edition_, Marvin Haverbeke
+- _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 - _Meditations_, Marcus Aurelius
 - _How to Win Friends and Influence People_, Dale Carnegie
 
