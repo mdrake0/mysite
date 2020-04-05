@@ -9,10 +9,12 @@ This is a list of books that I've read since starting this website.
 
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 - _Meditations_, Marcus Aurelius
-- _How to Win Friends and Influence People_, Dale Carnegie
+- _Increment Issue 11, "Teams"_
+- _Cracking the Coding Interview_, Gayle Laakmann McDowell
 
 ### Finished and Recommend
 
+- _How to Win Friends and Influence People_, Dale Carnegie
 - _The Soul of a New Machine_, Tracy Kidder
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
