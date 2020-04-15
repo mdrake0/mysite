@@ -7,12 +7,13 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Meditations_, Marcus Aurelius
-- _Increment Issue 11, "Teams"_
+- _Structure and Interpretation of Computer Programs_, Abelson and Sussman
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
+- _Meditations_, Marcus Aurelius
 
 ### Finished and Recommend
 
+- _Increment Issue 11, "Teams"_
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 - _How to Win Friends and Influence People_, Dale Carnegie
 - _The Soul of a New Machine_, Tracy Kidder
@@ -28,4 +29,3 @@ This is a list of books that I've read since starting this website.
 
 ### Didn't Finish (or Paused Indefinitely)
 
-- _Structure and Interpretation of Computer Programs_, Abelson and Sussman
