@@ -8,7 +8,6 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _Structure and Interpretation of Computer Programs_, Abelson and Sussman
-- _Cracking the Coding Interview_, Gayle Laakmann McDowell
 - _Meditations_, Marcus Aurelius
 
 ### Finished and Recommend
@@ -20,12 +19,15 @@ This is a list of books that I've read since starting this website.
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
 - _Skin in the Game: Hidden Asymmetries in Daily Life_, Nassim Nicholas Taleb
-- _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
-  Rob Walling
 - _The Lathe of Heaven_, Ursula Le Guin
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 
-### Finished and Don't Recommend
+### Finished
 
-### Didn't Finish (or Paused Indefinitely)
+- _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
+  Rob Walling
+
+### Didn't Finish
+
+- _Cracking the Coding Interview_, Gayle Laakmann McDowell
 
