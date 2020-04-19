@@ -7,6 +7,7 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
+- _The C Programming Language_, Kernighan and Ritchie
 - _Structure and Interpretation of Computer Programs_, Abelson and Sussman
 - _Meditations_, Marcus Aurelius
 
