@@ -4,7 +4,7 @@ date: 2020-04-05T15:48:00-04:00
 draft: true
 ---
 
-# Reading Notes (March 2020 - April 2020)
+# Reading Notes (February 2020 - April 2020)
 
 ## _How to Win Friends and Influence People_, Dale Carnegie
 
@@ -12,7 +12,7 @@ I see this book recommended often, and I always dismissed it because of the horr
 
 ## _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 
-Before reading this book, my JavaScript skills were pretty amorphous. I can hack my way around but I dind't have a deep understanding of _why_ I was doing anything. Things like callbacks, binding functions in class constructors, and Object prototypes are all examples of things that I (kinda) knew how to use but had basically no understanding of how/why it worked. 
+Before reading this book, my JavaScript skills were pretty amorphous. I can hack my way around but I dind't have a deep understanding of _why_ I was doing anything. Things like callbacks, binding functions in class constructors, and Object prototypes are all examples of things that I (kinda) knew how to use but I didn't have a deep understanding of why they worked.
 
 This book has leveled up my JavaScript skills so much that I can confidently say I like the language. 
 
@@ -21,3 +21,5 @@ I don't get frustrated by encountering weird syntax (arrow functions, spread syn
 I know how `async/await` and promises work! 
 
 It feels great, and I would recommend this book to anyone else with a fuzzy (and obviously incomplete) understanding of JavaScript.
+
+## _Increment Issue 11, "Teams"_, Stripe Publishing
