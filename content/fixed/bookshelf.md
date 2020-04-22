@@ -7,8 +7,9 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _Structure and Interpretation of Computer Programs_, Abelson and Sussman
+- _Problem Solving with Algorithms and Data Structures using Python_, Brad
+  Miller and David Ranum
+- _The Mom Test_, Rob Fitzpatrick
 - _Meditations_, Marcus Aurelius
 
 ### Finished and Recommend
@@ -29,3 +30,7 @@ This is a list of books that I've read since starting this website.
   Rob Walling
 
 ### Didn't Finish
+
+- _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
+  Hal Sussman
+
