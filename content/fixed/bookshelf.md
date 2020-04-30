@@ -11,6 +11,7 @@ This is a list of books that I've read since starting this website.
   Miller and David Ranum
 - _The Mom Test_, Rob Fitzpatrick
 - _Meditations_, Marcus Aurelius
+- _Fire & Blood_, George R. R. Martin
 
 ### Finished and Recommend
 
