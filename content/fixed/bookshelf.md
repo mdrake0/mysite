@@ -11,7 +11,6 @@ This is a list of books that I've read since starting this website.
   Miller and David Ranum
 - _Meditations_, Marcus Aurelius
 - _The Mom Test_, Rob Fitzpatrick
-- _Fire & Blood_, George R. R. Martin
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 
 ### Finished and Recommend
@@ -32,6 +31,7 @@ This is a list of books that I've read since starting this website.
 
 ### Didn't Finish
 
+- _Fire & Blood_, George R. R. Martin
 - _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
   Hal Sussman
 
