@@ -15,9 +15,6 @@ This is a list of books that I've read since starting this website.
 
 - _Increment Issue 11, "Teams"_
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
-- _How to Win Friends and Influence People_, Dale Carnegie
-- _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
-  Rob Walling
 - _The Soul of a New Machine_, Tracy Kidder
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
@@ -25,7 +22,11 @@ This is a list of books that I've read since starting this website.
 - _The Lathe of Heaven_, Ursula Le Guin
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
 
-### Finished
+### Finished but Don't Necessarily Recommend
+
+- _How to Win Friends and Influence People_, Dale Carnegie
+- _Start Small, Stay Small: A Developer's Guide to Launching a Startup_,
+  Rob Walling
 
 ### Didn't Finish
 
