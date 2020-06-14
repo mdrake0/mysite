@@ -8,8 +8,7 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _Meditations_, Marcus Aurelius
-- _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
-  Hal Sussman
+- _The C Programming Language, 2nd Edition_, Brian Kernighan and Dennis Ritchie
 
 ### Finished and Recommend
 
@@ -33,4 +32,6 @@ This is a list of books that I've read since starting this website.
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _Fire & Blood_, George R. R. Martin
 - _The Mom Test_, Rob Fitzpatrick
+- _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
+  Hal Sussman
 
