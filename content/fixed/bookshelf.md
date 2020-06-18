@@ -9,6 +9,8 @@ This is a list of books that I've read since starting this website.
 
 - _Meditations_, Marcus Aurelius
 - _The C Programming Language, 2nd Edition_, Brian Kernighan and Dennis Ritchie
+- _Deep Work_, Cal Newport
+- _Masters of Doom_, David Kushner
 
 ### Finished and Recommend
 
