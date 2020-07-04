@@ -8,9 +8,10 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _Meditations_, Marcus Aurelius
-- _The C Programming Language, 2nd Edition_, Brian Kernighan and Dennis Ritchie
 - _Deep Work_, Cal Newport
-- _Masters of Doom_, David Kushner
+- _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
+- _Head First Go_, Jay McGavren
+- _Invisible Cities_, Italo Calvino
 
 ### Finished and Recommend
 
@@ -31,7 +32,6 @@ This is a list of books that I've read since starting this website.
 
 ### Didn't Finish
 
-- _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _Fire & Blood_, George R. R. Martin
 - _The Mom Test_, Rob Fitzpatrick
 - _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
