@@ -10,8 +10,8 @@ This is a list of books that I've read since starting this website.
 - _Meditations_, Marcus Aurelius
 - _Deep Work_, Cal Newport
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
-- _Head First Go_, Jay McGavren
 - _Invisible Cities_, Italo Calvino
+- _The C Programming Language_, Brian Kernighan and Dennis Ritchie
 
 ### Finished and Recommend
 
