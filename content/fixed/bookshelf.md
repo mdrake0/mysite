@@ -11,7 +11,7 @@ This is a list of books that I've read since starting this website.
 - _Deep Work_, Cal Newport
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _Invisible Cities_, Italo Calvino
-- _The C Programming Language_, Brian Kernighan and Dennis Ritchie
+- _Head First C_, David Griffiths and Dawn Griffiths
 
 ### Finished and Recommend
 
