@@ -12,6 +12,7 @@ This is a list of books that I've read since starting this website.
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _Invisible Cities_, Italo Calvino
 - _Head First C_, David Griffiths and Dawn Griffiths
+- _The Algorithm Design Manual_, Steven Skiena
 
 ### Finished and Recommend
 
