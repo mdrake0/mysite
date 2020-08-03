@@ -8,13 +8,13 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _Meditations_, Marcus Aurelius
-- _Deep Work_, Cal Newport
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
-- _Invisible Cities_, Italo Calvino
-- _The Algorithm Design Manual_, Steven Skiena
+- _The Fountainhead_, Ayn Rand
 
 ### Finished and Recommend
 
+- _Invisible Cities_, Italo Calvino
+- _Deep Work_, Cal Newport
 - _Increment Issue 11, "Teams"_
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 - _The Soul of a New Machine_, Tracy Kidder
@@ -36,4 +36,3 @@ This is a list of books that I've read since starting this website.
 - _The Mom Test_, Rob Fitzpatrick
 - _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
   Hal Sussman
-
