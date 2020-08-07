@@ -10,6 +10,7 @@ This is a list of books that I've read since starting this website.
 - _Meditations_, Marcus Aurelius
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _The Fountainhead_, Ayn Rand
+- _Don't Make Me Think_, Steve Krug
 
 ### Finished and Recommend
 
