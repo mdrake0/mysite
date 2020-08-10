@@ -10,14 +10,15 @@ This is a list of books that I've read since starting this website.
 - _Meditations_, Marcus Aurelius
 - _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _The Fountainhead_, Ayn Rand
-- _Don't Make Me Think_, Steve Krug
 
 ### Finished and Recommend
 
+- _Don't Make Me Think_, Steve Krug
 - _Invisible Cities_, Italo Calvino
 - _Deep Work_, Cal Newport
 - _Increment Issue 11, "Teams"_
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
+- _The Mom Test_, Rob Fitzpatrick
 - _The Soul of a New Machine_, Tracy Kidder
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
@@ -34,6 +35,5 @@ This is a list of books that I've read since starting this website.
 ### Didn't Finish
 
 - _Fire & Blood_, George R. R. Martin
-- _The Mom Test_, Rob Fitzpatrick
 - _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
   Hal Sussman
