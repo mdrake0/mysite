@@ -7,12 +7,11 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _Meditations_, Marcus Aurelius
-- _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _The Fountainhead_, Ayn Rand
 
 ### Finished and Recommend
 
+- _Meditations_, Marcus Aurelius
 - _Don't Make Me Think_, Steve Krug
 - _Invisible Cities_, Italo Calvino
 - _Deep Work_, Cal Newport
@@ -34,6 +33,7 @@ This is a list of books that I've read since starting this website.
 
 ### Didn't Finish
 
+- _Practical Vim: Edit Text at the Speed of Thought_, Drew Neil
 - _Fire & Blood_, George R. R. Martin
 - _Structure and Interpretation of Computer Programs_, Gerald Jay Abelson and
   Hal Sussman
