@@ -7,7 +7,8 @@ This is a list of books that I've read since starting this website.
 
 ### Currently Reading
 
-- _The Fountainhead_, Ayn Rand
+- _Beej's Guide to Network Programming_, Brian Hall
+- _A Tour of C++_, Bjarne Stroustrup
 
 ### Finished and Recommend
 
