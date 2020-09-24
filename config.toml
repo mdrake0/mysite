@@ -37,7 +37,7 @@ url = "/fixed/bookshelf"
 [[menu.main]]
 name = "Twitter"
 weight = -80
-url = "https://twitter.com/mdrake__"
+url = "https://twitter.com/recambient"
 
 [params]
 latestpostscount = 20
@@ -45,5 +45,5 @@ author = "Matt Drake"
 dateform = "2 Jan 2006"
 avatar = "img/avatar.jpg"
 noshowreadtime = true
-github = "//github.com/mattcdrake"
-twitter = "//twitter.com/mdrake__"
+github = "//github.com/recambient"
+twitter = "//twitter.com/recambient"
