@@ -8,6 +8,8 @@ This is a list of books that I've read since starting this website.
 ### Currently Reading
 
 - _The Way of Kings_, Brandon Sanderson
+- _Cracking the Coding Interview_, Gayle Laakmann McDowell
+- _Learn Go with Tests_, Chris James
 
 ### Finished and Recommend
 
