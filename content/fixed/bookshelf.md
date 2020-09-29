@@ -9,11 +9,9 @@ This is a list of books that I've read since starting this website.
 
 - _The Way of Kings_, Brandon Sanderson
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _Learn Go with Tests_, Chris James
 
 ### Finished and Recommend
 
-- _Meditations_, Marcus Aurelius
 - _Don't Make Me Think_, Steve Krug
 - _Invisible Cities_, Italo Calvino
 - _Deep Work_, Cal Newport
@@ -21,6 +19,7 @@ This is a list of books that I've read since starting this website.
 - _Eloquent JavaScript, 3rd Edition_, Marjin Haverbeke
 - _The Mom Test_, Rob Fitzpatrick
 - _The Soul of a New Machine_, Tracy Kidder
+- _Meditations_, Marcus Aurelius
 - _How to Solve It_, George Pólya
 - _Circe_, Madeline Miller
 - _Skin in the Game: Hidden Asymmetries in Daily Life_, Nassim Nicholas Taleb
