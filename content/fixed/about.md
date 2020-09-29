@@ -15,4 +15,4 @@ science.
 For fun, I like to design games, read, and see live music. You can also find
 me at baseball games, nerding out with my awesome wife. Go Nats!
 
-You can find me programming on [Twitch](https://twitch.tv/mdrakedev).
+I also like to program on [Twitch](https://twitch.tv/mdrakedev).
