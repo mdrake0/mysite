@@ -23,12 +23,6 @@ identifier = "about"
 url = "/fixed/about"
 
 [[menu.main]]
-name = "Projects"
-weight = -100
-identifier = "projects"
-url = "/projects/"
-
-[[menu.main]]
 name = "Bookshelf"
 weight = -90
 identifier = "bookshelf"
@@ -37,7 +31,7 @@ url = "/fixed/bookshelf"
 [[menu.main]]
 name = "Twitter"
 weight = -80
-url = "https://twitter.com/recambient"
+url = "https://twitter.com/mattdrake_"
 
 [params]
 latestpostscount = 20
@@ -45,5 +39,5 @@ author = "Matt Drake"
 dateform = "2 Jan 2006"
 avatar = "img/avatar.jpg"
 noshowreadtime = true
-github = "//github.com/recambient"
-twitter = "//twitter.com/recambient"
+github = "//github.com/mattcdrake"
+twitter = "//twitter.com/mattdrake_"
