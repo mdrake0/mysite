@@ -16,4 +16,4 @@ For fun, I like to design games, read, and go to live music. You can also find
 me at Nationals games, nerding out with my awesome wife.
 
 You can also catch me streaming programming on
-[Twitch](https://twitch.tv/mdrakedev)
+[Twitch](https://twitch.tv/mattdrakedev)
