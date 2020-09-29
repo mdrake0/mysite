@@ -4,6 +4,7 @@ date: 2019-06-26T19:30:05-04:00
 ---
 
 I'm Matt Drake. I'm a full-stack developer in the Washington, D.C. metro area.
+
 In past lives, I have been a network engineer, data analyst, and
 non-commissioned officer.
 
