@@ -8,7 +8,7 @@ I'm Matt Drake. I'm a full-stack developer in the Washington, D.C. metro area.
 In past lives, I've been a network engineer, data analyst, and non-commissioned
 officer.
 
-I don't think most credentials provide strong signals of ability or knowledge. A lot of people disagree with me.
+I think most credentials are weak signals of ability or knowledge. A lot of people disagree with me.
 I have a degree in economics (math minor) and I'm working on one in computer science.
 
 For fun, I like to design games, read, and see live music. You can also find
