@@ -3,7 +3,11 @@ title: "My Bookshelf"
 date: 2019-06-26T19:37:37-04:00
 ---
 
-This is a list of books that I've read since starting this website.
+I love to hear about what people read and recommend, so here are my lists.
+
+If I finish a book and I don't like it, I just delete it from the list. I don't
+want to make negative reviews - I might just not be the audience for a
+particular book.
 
 ### Currently Reading
 

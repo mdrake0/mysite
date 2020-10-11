@@ -24,9 +24,14 @@ url = "/fixed/about"
 
 [[menu.main]]
 name = "Bookshelf"
-weight = -90
+weight = -100
 identifier = "bookshelf"
 url = "/fixed/bookshelf"
+
+[[menu.main]]
+name = "Code"
+weight = -90
+url = "https://github.com/mattcdrake"
 
 [[menu.main]]
 name = "Twitter"
