@@ -11,7 +11,7 @@ particular book.
 
 ### Currently Reading
 
-- _The C Programming Language_, Brian Kernighan and Dennis Ritchie
+- _The C Programming Language, 2nd Ed. (ANSI C)_, Brian Kernighan and Dennis Ritchie
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 
 ### Finished and Recommend
