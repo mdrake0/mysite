@@ -11,6 +11,7 @@ particular book.
 
 ### Currently Reading
 
+- _The Way of Kings_, Brandon Sanderson
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 
 ### Finished and Recommend
