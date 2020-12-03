@@ -11,6 +11,7 @@ particular book.
 
 ### Currently Reading
 
+- _Creativity, Inc.: Overcoming the Unseen Forces That Stand in the Way of True Inspiration_, Ed Catmull, Amy Wallace
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 
 ### Finished and Recommend
