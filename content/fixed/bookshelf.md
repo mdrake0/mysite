@@ -12,6 +12,8 @@ particular book.
 ### Currently Reading
 
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
+- _Learn Go with Tests_, Chris James
+- _How Linux Works_, Brian Ward
 
 ### Finished and Recommend
 
