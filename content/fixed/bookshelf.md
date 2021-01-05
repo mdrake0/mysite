@@ -11,10 +11,10 @@ particular book.
 
 ### Currently Reading
 
-- _Creativity, Inc.: Overcoming the Unseen Forces That Stand in the Way of True Inspiration_, Ed Catmull, Amy Wallace
-- _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _Learn Go with Tests_, Chris James
+- _Modern C_, Jens Gustedt
+- _A Tour of C++_, Bjarne Stroustrup
 - _How Linux Works_, Brian Ward
+- _Salt, Fat, Acid, Heat: Mastering the Elements of Good Cooking_, Samin Nosrat
 
 ### Finished and Recommend
 
