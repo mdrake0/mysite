@@ -93,8 +93,8 @@ with optimistic people that are great at (and care about) their job.
 ## Plan
 
 The plan has a lot of parts. First, I’m going to finish my CS degree and excel
-at it. In addition to coursework, I’m going to launch my own non-trivial
-project every month for 8 months. I think that this practical experience of
+at it. In addition to coursework, I’m going to launch a few non-trival projects.
+I think that this practical experience of
 shipping real projects will complement academic work nicely. I have an
 incredible opportunity, and I want to wring every drop out of it. Plus, some of
 the stuff I build might be good!
