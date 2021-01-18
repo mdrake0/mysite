@@ -39,7 +39,7 @@ weight = -80
 url = "https://twitter.com/mattdrake_"
 
 [params]
-latestpostscount = 20
+latestpostscount = 30
 author = "Matt Drake"
 dateform = "2 Jan 2006"
 avatar = "img/avatar.jpg"
