@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 12 Find my full solution repo here.
+This was a nice puzzle, even though I got stuck on the second half for a couple days. I tried a couple wrong approaches to storing and looking up previous states - namely binary trees and dictionary keys with a try/catch lookup.
+Eventually, I caved and looked up a hint on reddit. One commenter laid out helpful insights (the main one being that the repeated state must be the initial state, because all future states are children of the first) in a way that the problem was still interesting to solve.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 12" />
+<meta property="og:description" content="Advent of Code 2019 - Day 12 Find my full solution repo here.
+This was a nice puzzle, even though I got stuck on the second half for a couple days. I tried a couple wrong approaches to storing and looking up previous states - namely binary trees and dictionary keys with a try/catch lookup.
+Eventually, I caved and looked up a hint on reddit. One commenter laid out helpful insights (the main one being that the repeated state must be the initial state, because all future states are children of the first) in a way that the problem was still interesting to solve." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-12/" />
+<meta property="article:published_time" content="2019-12-29T17:57:37-05:00" />
+<meta property="article:modified_time" content="2019-12-29T17:57:37-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 12 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-12/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 12
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 29 2019 17:57:37 EST'>Dec 29, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-12">Advent of Code 2019 - Day 12</h1>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+<p>This was a nice puzzle, even though I got stuck on the second half for a couple
+days. I tried a couple wrong approaches to storing and looking up previous
+states - namely binary trees and dictionary keys with a try/catch lookup.</p>
+<p>Eventually, I caved and looked up a hint on
+<a href="https://reddit.com/r/adventofcode">reddit</a>. One commenter laid out helpful
+insights (the main one being that the repeated state <strong>must</strong> be the initial
+state, because all future states are children of the first) in a way that the
+problem was still interesting to solve.</p>
+<h2 id="adding-up-energy">Adding Up Energy</h2>
+<p>The first part went smoothly since implementing the solution is mostly just
+following the instructions. I made a <code>Body</code> class that had the required
+behavior and kept a list of 4 of them to simulate the moons.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">class</span> <span class="nc">Body</span><span class="p">:</span>
+    <span class="c1"># Position {&#39;x&#39;: n, &#39;y&#39;: n, &#39;z&#39;: n}</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">position</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_pos</span> <span class="o">=</span> <span class="n">position</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">update_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">velocity</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
+</code></pre></div><p>The code for advancing the simulation by a step is simple enough.
+<code>update_velocities(body1, body2)</code> finds the delta for each velocity axis and
+then applies it to both bodies. <code>update_position()</code> applies each body&rsquo;s
+velocity to its position.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">advance_time</span><span class="p">(</span><span class="n">bodies</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bodies</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">bodies</span><span class="p">)):</span>
+            <span class="n">update_velocities</span><span class="p">(</span><span class="n">bodies</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">bodies</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">body</span> <span class="ow">in</span> <span class="n">bodies</span><span class="p">:</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">update_position</span><span class="p">()</span>
+</code></pre></div><p>To find the energy, just iterate through each body and sum the absolute value of
+each position &amp; velocity axis.</p>
+<h2 id="the-hard-part">The Hard Part</h2>
+<p>The second part was much tougher for me. Both methods of storing and comparing
+historical values that I tried (trees and state as dictionary keys) was slow.
+With these approaches, the simulation was completing between 1.4m-2.3m steps
+in 30 seconds. Given that the example required 4-ish billion steps - this was
+way too slow.</p>
+<p>I beat my head on the wall for a long time on this problem and eventually gave
+in and got a hint off the AoC reddit. A nice user pointed out that:</p>
+<p>a) The repeated state must be the same as the initial state, and
+b) You can find the period of each axis individually</p>
+<p>Wow! Those are both great insights that make the correct approach so much
+clearer. Another thing this puzzle taught me is that I should spend more time
+considering approaches from a logical/math viewpoint. Doing so could give a lot
+of insight into what needs to be computed in the first place.</p>
+<p>Without further ado, here is my solution for part 2.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">found_all_steps</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="bp">True</span>
+
+
+<span class="k">def</span> <span class="nf">is_same_state</span><span class="p">(</span><span class="n">bodies</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">same_pos</span> <span class="o">=</span> <span class="n">bodies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">==</span> <span class="n">bodies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">initial_pos</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+        <span class="n">same_vel</span> <span class="o">=</span> <span class="n">bodies</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">velocity</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">same_pos</span> <span class="ow">and</span> <span class="n">same_vel</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">found</span><span class="p">)</span>
+
+<span class="n">bodies</span> <span class="o">=</span> <span class="n">parse_input</span><span class="p">(</span><span class="s2">&#34;./input/day12.txt&#34;</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">step_ct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">found_all_steps</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+    <span class="n">advance_time</span><span class="p">(</span><span class="n">bodies</span><span class="p">)</span>
+    <span class="n">step_ct</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">steps</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">is_same_state</span><span class="p">(</span><span class="n">bodies</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+            <span class="n">steps</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">step_ct</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;part 2: &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">lcm</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">steps</span><span class="p">)))</span>
+</code></pre></div><p>The key is to find the first step at which each axis repeats and then find the
+least common multiple (I&rsquo;m using <a href="https://numpy.org/devdocs/reference/generated/numpy.lcm.html">numpy</a>
+for this).</p>
+<p>Next time, I&rsquo;m going to do more thinking and less coding when something seems
+like the obviously wrong path.</p>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

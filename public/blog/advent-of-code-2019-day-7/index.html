@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 7 Intro Day 7 brings another Intcode puzzle, so I finally bit the bullet and refactored my vm. I&rsquo;m writing this after reading the prompt for day 9, so I&rsquo;m getting the sense more refactoring might be coming soon. For now, let&rsquo;s cover day 7&rsquo;s solution.
+As always, you can find my full solutions repo here.
+Solution The main thing I&rsquo;ve done to refactor my Intcode vm is to encapsulate it inside a class.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 7" />
+<meta property="og:description" content="Advent of Code 2019 - Day 7 Intro Day 7 brings another Intcode puzzle, so I finally bit the bullet and refactored my vm. I&rsquo;m writing this after reading the prompt for day 9, so I&rsquo;m getting the sense more refactoring might be coming soon. For now, let&rsquo;s cover day 7&rsquo;s solution.
+As always, you can find my full solutions repo here.
+Solution The main thing I&rsquo;ve done to refactor my Intcode vm is to encapsulate it inside a class." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-7/" />
+<meta property="article:published_time" content="2019-12-22T22:17:00-05:00" />
+<meta property="article:modified_time" content="2019-12-22T22:17:00-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 7 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-7/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 7
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 22 2019 22:17:00 EST'>Dec 22, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-7">Advent of Code 2019 - Day 7</h1>
+<h2 id="intro">Intro</h2>
+<p>Day 7 brings another Intcode puzzle, so I finally bit the bullet and refactored
+my vm. I&rsquo;m writing this after reading the prompt for day 9, so I&rsquo;m getting the
+sense more refactoring might be coming soon. For now, let&rsquo;s cover day 7&rsquo;s
+solution.</p>
+<p>As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>The main thing I&rsquo;ve done to refactor my Intcode vm is to encapsulate it inside
+a class. The instance will now keep track of the program counter and the
+internal memory/program. The primary interface to the class is the
+<code>compute(inputs)</code> method, which takes a list of inputs and returns an output
+value and an associated code (&ldquo;halt&rdquo; or &ldquo;output&rdquo;). This problem requires you to
+use previous outputs as inputs to the next amp, so I had to modify the <code>compute</code>
+method accordingly.</p>
+<p>With the new Intcode computer, the rest of the part one falls into place easily.
+Generate all permuations of amp settings and then iterate through them, using
+the vm to compute the max thrust.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">phase_settings</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">permutations</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">max_thrust</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">program</span> <span class="o">=</span> <span class="n">prep_intcode_program</span><span class="p">(</span><span class="s2">&#34;./input/day7.txt&#34;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">amp_config</span> <span class="ow">in</span> <span class="n">phase_settings</span><span class="p">:</span>
+    <span class="n">line_in</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">amp</span> <span class="ow">in</span> <span class="n">amp_config</span><span class="p">:</span>
+        <span class="n">computer</span> <span class="o">=</span> <span class="n">IntcodeComputer</span><span class="p">(</span><span class="n">program</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="n">line_in</span><span class="p">,</span> <span class="n">halt_type</span> <span class="o">=</span> <span class="n">computer</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="n">amp</span><span class="p">,</span> <span class="n">line_in</span><span class="p">])</span>
+        <span class="n">line_in</span> <span class="o">=</span> <span class="n">line_in</span>
+    <span class="k">if</span> <span class="n">line_in</span> <span class="o">&gt;</span> <span class="n">max_thrust</span><span class="p">:</span>
+        <span class="n">max_thrust</span> <span class="o">=</span> <span class="n">line_in</span>
+</code></pre></div><p>The second part throws a wrench into the puzzle by requiring you to pass one
+amp&rsquo;s output into the next amp&rsquo;s input. This is the spec change that made me
+have to do a refactor that allowed for output but retained the instance&rsquo;s
+program counter.</p>
+<p>I&rsquo;m using the same general approach of iterating through possibile amp
+configurations and comparing the final 5th amp output to the max seen thusfar.
+This is pretty messy, but I&rsquo;m <strong>getting shit done</strong> over here.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">for</span> <span class="n">amp_config</span> <span class="ow">in</span> <span class="n">phase_settings</span><span class="p">:</span>
+    <span class="n">first_run</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">amps</span> <span class="o">=</span> <span class="p">[</span><span class="n">IntcodeComputer</span><span class="p">(</span><span class="n">program</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)]</span>
+    <span class="n">amp_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">last_e_signal</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">line_in</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">found</span> <span class="ow">or</span> <span class="n">amp_id</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">first_run</span><span class="p">:</span>
+            <span class="n">line_in</span> <span class="o">=</span> <span class="p">[</span><span class="n">amp_config</span><span class="p">[</span><span class="n">amp_id</span><span class="p">],</span> <span class="n">line_in</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">line_in</span> <span class="o">=</span> <span class="p">[</span><span class="n">line_in</span><span class="p">]</span>
+
+        <span class="n">line_in</span><span class="p">,</span> <span class="n">halt_type</span> <span class="o">=</span> <span class="n">amps</span><span class="p">[</span><span class="n">amp_id</span><span class="p">]</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">line_in</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">halt_type</span> <span class="o">==</span> <span class="s2">&#34;output&#34;</span> <span class="ow">and</span> <span class="n">amp_id</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">last_e_signal</span> <span class="o">=</span> <span class="n">line_in</span>
+
+        <span class="k">if</span> <span class="n">halt_type</span> <span class="o">==</span> <span class="s2">&#34;halt&#34;</span><span class="p">:</span>
+            <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">if</span> <span class="n">amp_id</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">first_run</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">amp_id</span> <span class="o">=</span> <span class="p">(</span><span class="n">amp_id</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">5</span>
+
+    <span class="k">if</span> <span class="n">last_e_signal</span> <span class="o">&gt;</span> <span class="n">max_thrust</span><span class="p">:</span>
+        <span class="n">max_thrust</span> <span class="o">=</span> <span class="n">last_e_signal</span>
+</code></pre></div><p>Hopefully this version of the Intcode vm will be more extensible for future
+Intcode puzzles.</p>
+<p>As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

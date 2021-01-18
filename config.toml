@@ -5,6 +5,8 @@ contentdir = "content"
 publishdir = "public"
 author = "Matt Drake"
 title = "Matt Drake"
+pygmentsUseClasses = true
+pygmentsCodefences = true
 
 [permalinks]
 blog = "blog/:slug/"

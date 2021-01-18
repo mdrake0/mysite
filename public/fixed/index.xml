@@ -1,33 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fixeds on Matt Drake</title>
-    <link>https://mattcdrake.com/fixed/</link>
+    <link>https://mattdrake.dev/fixed/</link>
     <description>Recent content in Fixeds on Matt Drake</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 26 Jun 2019 19:37:37 -0400</lastBuildDate>
     
-	<atom:link href="https://mattcdrake.com/fixed/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mattdrake.dev/fixed/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>My Bookshelf</title>
-      <link>https://mattcdrake.com/fixed/bookshelf/</link>
+      <link>https://mattdrake.dev/fixed/bookshelf/</link>
       <pubDate>Wed, 26 Jun 2019 19:37:37 -0400</pubDate>
       
-      <guid>https://mattcdrake.com/fixed/bookshelf/</guid>
-      <description> This list primarily (but not strictly) includes things that I&amp;rsquo;ve read since starting this blog.
-Currently Reading  Structure and Interpretation of Computer Programs, Harold Ableson and Gerald Jay Sussman with Julie Sussman Learn Go with Tests, Chris James Music Theory for Computer Musicians, Michael Hewitt  Finished and Recommend  How to Solve It, George Pólya Circe, Madeline Miller  Finished and Don&amp;rsquo;t Recommend </description>
+      <guid>https://mattdrake.dev/fixed/bookshelf/</guid>
+      <description>I love to hear about what people read and recommend, so here are my lists.
+If I finish a book and I don&amp;rsquo;t like it, I just delete it from the list. I don&amp;rsquo;t want to make negative reviews - I might just not be the audience for a particular book.
+Currently Reading  Modern C, Jens Gustedt A Tour of C++, Bjarne Stroustrup How Linux Works, Brian Ward Salt, Fat, Acid, Heat: Mastering the Elements of Good Cooking, Samin Nosrat  Finished and Recommend  Don&amp;rsquo;t Make Me Think, Steve Krug Invisible Cities, Italo Calvino Deep Work, Cal Newport Increment Issue 11, &amp;ldquo;Teams&amp;rdquo; Eloquent JavaScript, 3rd Edition, Marjin Haverbeke The Mom Test, Rob Fitzpatrick The Soul of a New Machine, Tracy Kidder Meditations, Marcus Aurelius How to Solve It, George Pólya Circe, Madeline Miller Skin in the Game: Hidden Asymmetries in Daily Life, Nassim Nicholas Taleb The Lathe of Heaven, Ursula Le Guin Automate the Boring Stuff with Python, 2nd ed.</description>
     </item>
     
     <item>
       <title>About Me</title>
-      <link>https://mattcdrake.com/fixed/about/</link>
+      <link>https://mattdrake.dev/fixed/about/</link>
       <pubDate>Wed, 26 Jun 2019 19:30:05 -0400</pubDate>
       
-      <guid>https://mattcdrake.com/fixed/about/</guid>
-      <description>I&amp;rsquo;m Matt Drake. I like to solve problems, build things, and make music.</description>
+      <guid>https://mattdrake.dev/fixed/about/</guid>
+      <description>I&amp;rsquo;m Matt Drake. I&amp;rsquo;m a software developer in the Washington, D.C. metro area.
+For fun, I like to design games, read, and see live music. You can also find me at baseball games, nerding out with my awesome wife. Go Nats!</description>
     </item>
     
   </channel>

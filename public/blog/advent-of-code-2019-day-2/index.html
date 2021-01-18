@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 2 Intro This puzzle was a clever way of introducing the idea of opcodes, loading/storing values, and assembly in general to someone that may not have been exposed to it before. I watched a talk by the creator of Advent of Code this weekend and he made a point that he has to design these puzzles for someone that may never have taken a CS class before.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 2" />
+<meta property="og:description" content="Advent of Code 2019 - Day 2 Intro This puzzle was a clever way of introducing the idea of opcodes, loading/storing values, and assembly in general to someone that may not have been exposed to it before. I watched a talk by the creator of Advent of Code this weekend and he made a point that he has to design these puzzles for someone that may never have taken a CS class before." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-2/" />
+<meta property="article:published_time" content="2019-12-03T22:13:15-05:00" />
+<meta property="article:modified_time" content="2019-12-03T22:13:15-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 2 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-2/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 2
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Dec 3 2019 22:13:15 EST'>Dec 3, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-2">Advent of Code 2019 - Day 2</h1>
+<h2 id="intro">Intro</h2>
+<p>This puzzle was a clever way of introducing the idea of opcodes,
+loading/storing values, and assembly in general to someone that may not have
+been exposed to it before. I watched a
+<a href="https://www.youtube.com/watch?v=gibVyxpi-qA">talk by the creator of Advent of Code</a>
+this weekend and he made a point that he has to design these puzzles for
+someone that may never have taken a CS class before. I could really see the
+result of that care and foresight in this puzzle.</p>
+<p>You can find my solution repo <a href="https://github.com/mattcdrake/aoc19-go">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>I start by parsing the input into a slice of strings, converting it to a slice
+of ints, and then returning that slice.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Reads input file, splits into a string slice, converts those elements to an
+</span><span class="c1">// int slice and returns it.
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">prepInputD2</span><span class="p">()</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;./input/day2.txt&#34;</span><span class="p">)</span>
+	<span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nf">NewScanner</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+	<span class="c1">// Assumption: all input data is on a single comma-separated line
+</span><span class="c1"></span>	<span class="nx">scanner</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span>
+	<span class="nx">input</span> <span class="o">:=</span> <span class="nx">scanner</span><span class="p">.</span><span class="nf">Text</span><span class="p">()</span>
+	<span class="nx">inputSlice</span> <span class="o">:=</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">Split</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="s">&#34;,&#34;</span><span class="p">)</span>
+	<span class="nx">numSlice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">inputSlice</span><span class="p">))</span>
+
+	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">val</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">inputSlice</span> <span class="p">{</span>
+		<span class="nx">val</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+		<span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="nx">numSlice</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">val</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">numSlice</span>
+<span class="p">}</span>
+</code></pre></div><p>From there, I made the modifications to the input inside of my call to
+<code>day2Puzzle1</code> before passing that slice to my <code>compute</code> function. The
+computation process isn&rsquo;t that interesting, but you can find it in the
+<a href="https://github.com/mattcdrake/aoc19-go">repo</a> if you want to check it out.</p>
+<p>The second puzzle involves iterating through the possible nouns and verbs to
+find the pair that creates the desired solution. There is probably a more
+elegant way to solve this, but brute forcing it here seems to work just fine.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">day2Puzzle2</span><span class="p">(</span><span class="nx">intcodes</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">tempcopy</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">intcodes</span><span class="p">))</span>
+	<span class="k">for</span> <span class="nx">noun</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">noun</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">noun</span><span class="o">++</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="nx">verb</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">verb</span> <span class="p">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="nx">verb</span><span class="o">++</span> <span class="p">{</span>
+			<span class="nb">copy</span><span class="p">(</span><span class="nx">tempcopy</span><span class="p">,</span> <span class="nx">intcodes</span><span class="p">)</span>
+			<span class="nx">tempcopy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">noun</span>
+			<span class="nx">tempcopy</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="nx">verb</span>
+			<span class="nx">result</span> <span class="o">:=</span> <span class="nf">compute</span><span class="p">(</span><span class="nx">tempcopy</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">result</span> <span class="o">==</span> <span class="mi">19690720</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="mi">100</span><span class="o">*</span><span class="nx">noun</span> <span class="o">+</span> <span class="nx">verb</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+<span class="p">}</span>
+</code></pre></div><p>When it came to the second part of the puzzle, this is where I learned (after
+some confusion) that Go doesn&rsquo;t &ldquo;pass by value&rdquo; - although I&rsquo;m not sure how to
+say that concept in Go-language (ha) yet. I had a test case that called
+<code>prepInputD2()</code> and passed that into <code>day2Puzzle2</code> - it would pass while the
+actual function call would fail. After a few moments of chin-stroking, I
+realized that I hadn&rsquo;t been refreshing the input data after calling
+<code>day2Puzzle1</code>, so the pre-compute modifications that you have to make were
+getting made for the call to part 2&rsquo;s solution. This was screwing everything
+up!</p>
+<p>Eventually, I figured it out and I learned more about Go - so it was definitely
+a success. For the record, I&rsquo;m really enjoying the language so far. There are
+some things that are a little weird (only <code>for</code> loops) and some things that
+are a little bit like <a href="http://www.usbowling.com/bumper-gutter-system.html">bumper bowling</a>
+(I can&rsquo;t compile with an unused import?)&hellip;but overall I&rsquo;m finding it to be
+nice and refreshing.</p>
+<p>Looking forward to day 3 (which I will be a day late on).</p>
+<p>You can find my solution repo <a href="https://github.com/mattcdrake/aoc19-go">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 3 Intro First things first, I stopped using Go and started using Python. You can find my new solutions repo here. I decided to stop using Go because I am also working through SICP in addition to Advent of Code and a stealthmode side project I&rsquo;m working on. That&rsquo;s all in addition to my fulltime job, so something had to give and I&rsquo;m dropping Go for now.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 3" />
+<meta property="og:description" content="Advent of Code 2019 - Day 3 Intro First things first, I stopped using Go and started using Python. You can find my new solutions repo here. I decided to stop using Go because I am also working through SICP in addition to Advent of Code and a stealthmode side project I&rsquo;m working on. That&rsquo;s all in addition to my fulltime job, so something had to give and I&rsquo;m dropping Go for now." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-3/" />
+<meta property="article:published_time" content="2019-12-09T21:35:12-05:00" />
+<meta property="article:modified_time" content="2019-12-09T21:35:12-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 3 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-3/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 3
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Mon Dec 9 2019 21:35:12 EST'>Dec 9, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-3">Advent of Code 2019 - Day 3</h1>
+<h2 id="intro">Intro</h2>
+<p>First things first, I stopped using Go and started using Python. You can find
+my new solutions repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>. I
+decided to stop using Go because I am also working through
+<a href="https://github.com/mattcdrake/sicp">SICP</a> in addition to Advent of Code and a
+stealthmode side project I&rsquo;m working on. That&rsquo;s all in addition to my fulltime
+job, so something had to give and I&rsquo;m dropping Go for now. What I saw was
+interesting though, and I hope to work with it again soon.</p>
+<p>Now, for the solution!</p>
+<h2 id="solution">Solution</h2>
+<p>My first approach to this problem was way more complicated than it needed to be.
+I was first calculating the required dimensions of the board by calculating the
+max width/height requirements of the cord pair. This was way too slow in Python
+(it&rsquo;s also just a bad approach - don&rsquo;t want to blame the language for my poor
+algorithm choice).</p>
+<p>My next approach was to track the grid state as a dictionary where keys are
+strings of the form &ldquo;x,y&rdquo; and values are the IDs of the cord that passes through
+that square.</p>
+<p>This is the main driver that process all the cord segments:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">cord_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">cord</span> <span class="ow">in</span> <span class="n">cords</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">segment</span> <span class="ow">in</span> <span class="n">cord</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&#34;L&#34;</span><span class="p">:</span>
+            <span class="n">process_left</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">-=</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span>
+        <span class="k">elif</span> <span class="n">segment</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&#34;U&#34;</span><span class="p">:</span>
+            <span class="n">process_up</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">-=</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span>
+        <span class="k">elif</span> <span class="n">segment</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&#34;R&#34;</span><span class="p">:</span>
+            <span class="n">process_right</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span>
+        <span class="k">elif</span> <span class="n">segment</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&#34;D&#34;</span><span class="p">:</span>
+            <span class="n">process_down</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span>
+        <span class="n">steps</span> <span class="o">+=</span> <span class="n">segment</span><span class="o">.</span><span class="n">distance</span>
+    <span class="n">cord_id</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div><p>And this is a directional processing function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">process_left</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">distance</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+    <span class="k">while</span> <span class="n">distance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34;,&#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">update_board</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">steps</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">distance</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">steps</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div><p>There are four different processing functions, one for each direction. You could
+create a single process function that updates the right coordinate with a switch
+statement, because the rest of the code is the same between the functions. In
+fact, I think that&rsquo;s a better way to do things, but I&rsquo;m too far behind on the
+puzzles to tackle refactoring a working solution right now.</p>
+<p>The <code>update_board</code> function simply adds the cord id (and steps to the square,
+for part 2) to the dictionary if the square isn&rsquo;t there yet. It appends the new
+cord if it hasn&rsquo;t been there before.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">update_board</span><span class="p">(</span><span class="n">cord_id</span><span class="p">,</span> <span class="n">board</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">steps</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">board</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">cord_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">board</span><span class="p">[</span><span class="n">key</span><span class="p">]):</span>
+        <span class="n">board</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">cord_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">steps</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">board</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">cord_id</span><span class="p">:</span> <span class="n">steps</span><span class="p">}</span>
+</code></pre></div><p>The main solving loop is straightforward enough. It iterates though the grid
+and tests squares with more than one cord to see if they are less than the
+running minimums. If they are, the minimums get updated. Easy peasy.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">board</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">manhattan_distance</span> <span class="o">=</span> <span class="n">calc_manhattan_dist</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">manhattan_distance</span> <span class="o">&lt;</span> <span class="n">min_distance</span> <span class="ow">and</span> <span class="n">manhattan_distance</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">min_distance</span> <span class="o">=</span> <span class="n">manhattan_distance</span>
+
+        <span class="c1"># value here has the form {0: 120230, 1: 21387}</span>
+        <span class="n">current_steps</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">cord_id</span><span class="p">,</span> <span class="n">steps</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">current_steps</span> <span class="o">+=</span> <span class="n">steps</span>
+        
+        <span class="k">if</span> <span class="n">current_steps</span> <span class="o">&lt;</span> <span class="n">min_steps</span> <span class="ow">and</span> <span class="n">manhattan_distance</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">min_steps</span> <span class="o">=</span> <span class="n">current_steps</span>
+</code></pre></div><p>Again, the full repo is <a href="https://github.com/mattcdrake/aoc19-python">here</a>!</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

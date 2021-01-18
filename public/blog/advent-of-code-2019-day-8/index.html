@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 8 Intro Day 8 was a refreshing break from the Intcode vm and it was exactly what I like out of programming puzzles: simple premise, straightforward, and short implementation time once you&rsquo;ve devised a valid approach.
+As always, you can find my full solutions repo here.
+Solution For part one, I worked with a list of lists, with each inner list as a &ldquo;layer&rdquo; of data.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 8" />
+<meta property="og:description" content="Advent of Code 2019 - Day 8 Intro Day 8 was a refreshing break from the Intcode vm and it was exactly what I like out of programming puzzles: simple premise, straightforward, and short implementation time once you&rsquo;ve devised a valid approach.
+As always, you can find my full solutions repo here.
+Solution For part one, I worked with a list of lists, with each inner list as a &ldquo;layer&rdquo; of data." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-8/" />
+<meta property="article:published_time" content="2019-12-22T22:59:48-05:00" />
+<meta property="article:modified_time" content="2019-12-22T22:59:48-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 8 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-8/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 8
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 22 2019 22:59:48 EST'>Dec 22, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-8">Advent of Code 2019 - Day 8</h1>
+<h2 id="intro">Intro</h2>
+<p>Day 8 was a refreshing break from the Intcode vm and it was exactly what I
+like out of programming puzzles: simple premise, straightforward, and short
+implementation time once you&rsquo;ve devised a valid approach.</p>
+<p>As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>For part one, I worked with a list of lists, with each inner list as a &ldquo;layer&rdquo;
+of data. The two money-maker functions are one to count the number of times a
+character appears in the layer and one to find the layer with the fewest
+zeroes.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">count_char</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">char</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">digit</span> <span class="ow">in</span> <span class="n">layer</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">digit</span> <span class="o">==</span> <span class="n">char</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span>
+
+
+<span class="k">def</span> <span class="nf">find_fewest_zeroes</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+    <span class="n">fewest_layer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">least_zeroes_ct</span> <span class="o">=</span> <span class="n">maxsize</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+        <span class="n">zeroes</span> <span class="o">=</span> <span class="n">count_char</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">zeroes</span> <span class="o">&lt;</span> <span class="n">least_zeroes_ct</span><span class="p">:</span>
+            <span class="n">least_zeroes_ct</span> <span class="o">=</span> <span class="n">zeroes</span>
+            <span class="n">fewest_layer</span> <span class="o">=</span> <span class="n">index</span>
+    <span class="k">return</span> <span class="n">fewest_layer</span>
+</code></pre></div><p>From there, you just have to find the right layer then multiply
+<code>count_char(layer, &quot;1&quot;)</code> times <code>count_char(layer, &quot;2&quot;)</code>. Voila.</p>
+<p>Starting part two, I realized that it would be much easier to work with the
+layers in a row/column format, so I made each layer a 2d list. Then, I made a
+function to find the first non-transparent color for each pixel in a layer.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">find_pixel</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+        <span class="n">pixel</span> <span class="o">=</span> <span class="n">layer</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">pixel</span> <span class="o">!=</span> <span class="s2">&#34;2&#34;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pixel</span>
+    <span class="k">return</span> <span class="mi">2</span>
+</code></pre></div><p>Creating the output image is super easy once you have the data in an amenable
+format.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">layers</span> <span class="o">=</span> <span class="n">split_rows</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+<span class="n">pixels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+    <span class="n">pixels</span><span class="o">.</span><span class="n">append</span><span class="p">([])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">25</span><span class="p">):</span>
+        <span class="n">pixels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">find_pixel</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+</code></pre></div><p>Now, for another Intcode puzzle&hellip;</p>
+<p>As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 6 Intro I just finished day 6 right before (checks watch) the day 16 puzzle comes out. Who&rsquo;s counting? As always, you can find my full solutions repo here.
+Solution I knew that this was a tree problem but wanted to avoid building one for as long as I could. I solved the first part of the puzzle by with only a sorted list of orbit pairs.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 6" />
+<meta property="og:description" content="Advent of Code 2019 - Day 6 Intro I just finished day 6 right before (checks watch) the day 16 puzzle comes out. Who&rsquo;s counting? As always, you can find my full solutions repo here.
+Solution I knew that this was a tree problem but wanted to avoid building one for as long as I could. I solved the first part of the puzzle by with only a sorted list of orbit pairs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-6/" />
+<meta property="article:published_time" content="2019-12-15T21:44:34-05:00" />
+<meta property="article:modified_time" content="2019-12-15T21:44:34-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 6 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-6/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 6
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 15 2019 21:44:34 EST'>Dec 15, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-6">Advent of Code 2019 - Day 6</h1>
+<h2 id="intro">Intro</h2>
+<p>I just finished day 6 right before (<em>checks watch</em>) the day 16 puzzle comes
+out. Who&rsquo;s counting? As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>I knew that this was a tree problem but wanted to avoid building one for as long
+as I could. I solved the first part of the puzzle by with only a sorted list of
+orbit pairs. Here&rsquo;s the sort code:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">sortOrbits</span><span class="p">(</span><span class="n">orbits</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">orbits</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Put &#34;COM&#34; first</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">orbits</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">orbits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">orbitee</span> <span class="o">==</span> <span class="s2">&#34;COM&#34;</span><span class="p">:</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">orbits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">orbits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+
+    <span class="c1"># Sort the rest of the orbit pairs</span>
+    <span class="n">trail</span><span class="p">,</span> <span class="n">inner</span><span class="p">,</span> <span class="n">lead</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">orbiter</span>
+    <span class="k">while</span> <span class="n">trail</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">orbits</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">lead</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">orbits</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">orbits</span><span class="p">[</span><span class="n">lead</span><span class="p">]</span><span class="o">.</span><span class="n">orbitee</span> <span class="o">==</span> <span class="n">target</span><span class="p">:</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="n">inner</span><span class="p">]</span>
+                <span class="n">orbits</span><span class="p">[</span><span class="n">inner</span><span class="p">]</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="n">lead</span><span class="p">]</span>
+                <span class="n">orbits</span><span class="p">[</span><span class="n">lead</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+                <span class="n">inner</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">lead</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">orbits</span><span class="p">[</span><span class="n">trail</span><span class="p">]</span><span class="o">.</span><span class="n">orbiter</span>
+        <span class="n">trail</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">lead</span> <span class="o">=</span> <span class="n">inner</span>
+</code></pre></div><p>It sorts the list in place in a breadth-first order by keeping each group of
+horizontal children next to each other. This way, I can build the tree without
+having to worry about whether or not I need to swap the node order.</p>
+<p>I initially solved part 1 using only this sorted list. I deleted the code, but
+it was basically going backward through the list and tracing each node chain
+back to the COM object. Since the list was sorted, going backward ensured that
+nothing would get double-counted.</p>
+<p>This was way easier after I finally caved and built a tree of orbit pairs. Then,
+all it took was a simple recursive function to count the total number of links.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="c1"># If this wasn&#39;t just a puzzle, I would wrap this so you wouldn&#39;t need to pass</span>
+<span class="c1"># in `depth` since that doesn&#39;t really make sense from user&#39;s standpoint.</span>
+<span class="k">def</span> <span class="nf">countOrbits</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">depth</span>
+    <span class="n">subtotal</span> <span class="o">=</span> <span class="n">depth</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">head</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">subtotal</span> <span class="o">+=</span> <span class="n">countOrbits</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subtotal</span>
+
+<span class="n">countOrbits</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div><p>To find the shortest path to Santa&rsquo;s orbit, I pass the two references to &ldquo;Santa&rdquo;
+and &ldquo;You&rdquo; objects (found with a search function) to <code>findDistance()</code>. This
+function first finds the distance to the common ancestor node and then counts
+the depth to the destination node. Adding those two counts (and subtracting one,
+since you&rsquo;re really trying to count orbit switches and not overall depth) gives
+you the shortest number of orbit swaps required to get you orbiting the same
+body as Santa. Incredible.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">findDistance</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">):</span>
+    <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">parent</span>
+    <span class="k">while</span> <span class="n">cur</span><span class="o">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">dest</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+        <span class="n">curtemp</span> <span class="o">=</span> <span class="n">searchChildNodes</span><span class="p">(</span><span class="n">dest</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">cur</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">curtemp</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">distance</span> <span class="o">+</span> <span class="n">countNodeDepth</span><span class="p">(</span><span class="n">dest</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">cur</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">parent</span>
+        <span class="n">distance</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div><p>As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

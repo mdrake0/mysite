@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 13 Find my full solution repo here.
+Day 13&rsquo;s puzzle wasn&rsquo;t so bad, although I spent a long time debugging something really silly. I also made things much more complicated than they needed to be when determining how to move the joystick.
+Breakout! The data structure for this puzzle is similar to the one I used on the Space Police puzzle - a 2d grid with inverted y-axis.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 13" />
+<meta property="og:description" content="Advent of Code 2019 - Day 13 Find my full solution repo here.
+Day 13&rsquo;s puzzle wasn&rsquo;t so bad, although I spent a long time debugging something really silly. I also made things much more complicated than they needed to be when determining how to move the joystick.
+Breakout! The data structure for this puzzle is similar to the one I used on the Space Police puzzle - a 2d grid with inverted y-axis." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-13/" />
+<meta property="article:published_time" content="2019-12-29T23:44:56-05:00" />
+<meta property="article:modified_time" content="2019-12-29T23:44:56-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 13 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-13/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 13
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 29 2019 23:44:56 EST'>Dec 29, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-13">Advent of Code 2019 - Day 13</h1>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+<p>Day 13&rsquo;s puzzle wasn&rsquo;t so bad, although I spent a long time debugging something
+<strong>really</strong> silly. I also made things much more complicated than they needed to
+be when determining how to move the joystick.</p>
+<h2 id="breakout">Breakout!</h2>
+<p>The data structure for this puzzle is similar to the one I used on the
+<a href="https://adventofcode.com/2019/day/11">Space Police</a> puzzle - a 2d grid with
+inverted y-axis.</p>
+<p>The main loop is simple. Draw the screen and then count the blocks. Bam.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">while</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&#34;halt&#34;</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">computer</span><span class="o">.</span><span class="n">compute</span><span class="p">([])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">computer</span><span class="o">.</span><span class="n">compute</span><span class="p">([])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">check_bounds</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">computer</span><span class="o">.</span><span class="n">compute</span><span class="p">([])</span>
+    <span class="n">place_tile</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;part 1: &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">count_tiles</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+</code></pre></div><p><code>check_bounds(screen, x, y)</code> will grow the boundaries of the screen if
+necessary. This allows for arbitrary screen sizes.</p>
+<h2 id="i-overcomplicated-ai-like-everyone-else">I Overcomplicated AI (Like Everyone Else)</h2>
+<p>For part 2, you really just have to keep the score output and move the paddle.
+I made &ldquo;move the paddle&rdquo; way more complicated than it needed to be for 45
+minutes or so. I was tracking the vector that the ball was travelling in and
+trying to move the paddle to the point where the ball-path would intersect with
+the paddle&rsquo;s horizontal plane.</p>
+<p>Of course, you can just move the paddle to always be under the ball&hellip; I
+eventually realized this and had a solid facepalm moment.</p>
+<p>Lastly, I mentioned that I had a <strong>really silly bug</strong>.</p>
+<p>I first wrote a function to find the ball:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">find_ball</span><span class="p">(</span><span class="n">screen</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">index_y</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">screen</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index_x</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">index_x</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">index_y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div><p>Then I thought, &ldquo;This would also be useful for finding the paddle&rdquo;, so I
+refactored:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">find_tile</span><span class="p">(</span><span class="n">screen</span><span class="p">,</span> <span class="n">tile</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">index_y</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">screen</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index_x</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">index_x</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">index_y</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div><p>But the paddle was always showing up as the same position as the ball, even when
+that was obviously not the case. Do you see the bug?</p>
+<p>I forgot to change the constant &lsquo;4&rsquo; to use the &lsquo;tile&rsquo; parameter. Whoops!</p>
+<p>All in all, I thought this was a great puzzle and next time I have to pay closer
+attention to my refactors.</p>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

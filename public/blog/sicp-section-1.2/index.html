@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Section 1.2 - Procedures and the Processes they Generate You can see all of my code here.
+Exercise 1.9 ; Version 1 (define (&#43; a b) (if (= a 0) b (inc (&#43; (dec a) b)))) ; Version 2 (define (&#43; a b) (if (= a 0) b (&#43; (dec a) (inc b)))) Version 1 expands in a way that is linearly recursive. The space requirement is a factor of n where n is the number supplied as the formal parameter a.">
+
+<meta property="og:title" content="SICP - Section 1.2" />
+<meta property="og:description" content="Section 1.2 - Procedures and the Processes they Generate You can see all of my code here.
+Exercise 1.9 ; Version 1 (define (&#43; a b) (if (= a 0) b (inc (&#43; (dec a) b)))) ; Version 2 (define (&#43; a b) (if (= a 0) b (&#43; (dec a) (inc b)))) Version 1 expands in a way that is linearly recursive. The space requirement is a factor of n where n is the number supplied as the formal parameter a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/sicp-section-1.2/" />
+<meta property="article:published_time" content="2019-12-01T20:04:16-05:00" />
+<meta property="article:modified_time" content="2019-12-01T20:04:16-05:00" />
+
+
+<title>
+
+
+     SICP - Section 1.2 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/sicp-section-1.2/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    SICP - Section 1.2
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sun Dec 1 2019 20:04:16 EST'>Dec 1, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="section-12---procedures-and-the-processes-they-generate">Section 1.2 - Procedures and the Processes they Generate</h1>
+<p>You can see all of my code <a href="https://github.com/mattcdrake/sicp">here</a>.</p>
+<h2 id="exercise-19">Exercise 1.9</h2>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="c1">; Version 1</span>
+<span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">+ </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">a</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nv">b</span>
+        <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">dec</span> <span class="nv">a</span><span class="p">)</span> <span class="nv">b</span><span class="p">))))</span>
+
+<span class="c1">; Version 2</span>
+<span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">+ </span><span class="nv">a</span> <span class="nv">b</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">a</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nv">b</span>
+        <span class="p">(</span><span class="nb">+ </span><span class="p">(</span><span class="nf">dec</span> <span class="nv">a</span><span class="p">)</span> <span class="p">(</span><span class="nf">inc</span> <span class="nv">b</span><span class="p">))))</span>
+</code></pre></div><p>Version 1 expands in a way that is linearly recursive. The space requirement is
+a factor of n where n is the number supplied as the formal parameter <code>a</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nb">+ </span><span class="mi">4</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">3</span> <span class="mi">5</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">2</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="mi">5</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nb">+ </span><span class="mi">0</span> <span class="mi">5</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="mi">5</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="mi">6</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="p">(</span><span class="nf">inc</span> <span class="mi">7</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">inc</span> <span class="mi">8</span><span class="p">)</span>
+<span class="mi">9</span>
+</code></pre></div><p>Version 2 is a linearly iterative process and the space requirement is constant
+regardless of how n scales.</p>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nb">+ </span><span class="mi">4</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">+ </span><span class="mi">3</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">+ </span><span class="mi">2</span> <span class="mi">7</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">+ </span><span class="mi">1</span> <span class="mi">8</span><span class="p">)</span>
+<span class="p">(</span><span class="nb">+ </span><span class="mi">0</span> <span class="mi">9</span><span class="p">)</span>
+</code></pre></div><h2 id="exercise-110">Exercise 1.10</h2>
+<p>I&rsquo;m not going to expand all 3 but here&rsquo;s the first.</p>
+<div class="highlight"><pre class="chroma"><code class="language-scheme" data-lang="scheme"><span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">9</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">8</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">7</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">6</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">5</span><span class="p">))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">4</span><span class="p">)))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">3</span><span class="p">))))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">2</span><span class="p">)))))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">))))))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">2</span><span class="p">)))))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">4</span><span class="p">))))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">8</span><span class="p">)))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">16</span><span class="p">))))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">32</span><span class="p">)))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">64</span><span class="p">))))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">128</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">256</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="mi">512</span><span class="p">)</span>
+<span class="mi">1024</span>
+
+<span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">f</span> <span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">0</span> <span class="nv">n</span><span class="p">)</span>
+<span class="c1">; 2n</span>
+
+<span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">g</span> <span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">1</span> <span class="nv">n</span><span class="p">)</span>
+<span class="c1">; 2^n</span>
+
+<span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">h</span> <span class="nv">n</span><span class="p">)</span> <span class="p">(</span><span class="nf">A</span> <span class="mi">2</span> <span class="nv">n</span><span class="p">)</span>
+<span class="c1">; Unsure how to represent this using _concise mathematical definitions_.</span>
+<span class="c1">; 2^2^2... etc (number of 2&#39;s = n)</span>
+</code></pre></div>
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

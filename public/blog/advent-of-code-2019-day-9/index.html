@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 9 Find my full solution repo here
+Debugging this puzzle was a complete nightmare for me. As is the case with most debugging stories, it was completely my fault all along.
+The Problem First, a while back, I thought that the instructions said &ldquo;a parameter that you write to will always be in immediate mode.&rdquo; The instructions actually say the exact opposite of that. So, when processing the parameter modes, I would hardcode the parameter mode to &ldquo;immediate&rdquo; for arguments that were supposed to be written to.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 9" />
+<meta property="og:description" content="Advent of Code 2019 - Day 9 Find my full solution repo here
+Debugging this puzzle was a complete nightmare for me. As is the case with most debugging stories, it was completely my fault all along.
+The Problem First, a while back, I thought that the instructions said &ldquo;a parameter that you write to will always be in immediate mode.&rdquo; The instructions actually say the exact opposite of that. So, when processing the parameter modes, I would hardcode the parameter mode to &ldquo;immediate&rdquo; for arguments that were supposed to be written to." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-9/" />
+<meta property="article:published_time" content="2019-12-24T00:08:07-05:00" />
+<meta property="article:modified_time" content="2019-12-24T00:08:07-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 9 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-9/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 9
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Dec 24 2019 00:08:07 EST'>Dec 24, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-9">Advent of Code 2019 - Day 9</h1>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a></em></p>
+<p>Debugging this puzzle was a complete nightmare for me. As is the case with most
+debugging stories, it was completely my fault all along.</p>
+<h2 id="the-problem">The Problem</h2>
+<p>First, a while back, I thought that the instructions said &ldquo;a parameter that you
+write to will <em>always</em> be in immediate mode.&rdquo; The instructions actually say the
+exact opposite of that. So, when processing the parameter modes, I would
+hardcode the parameter mode to &ldquo;immediate&rdquo; for arguments that were supposed to
+be written to. This had some terrible side effects.</p>
+<p>The <strong>most bad</strong> side effect was that this mistake actually led me to <strong>get</strong>
+<strong>the right answer</strong>, because I was handling the writing section of the opcode
+wrong.</p>
+<p>For example, my argument parsing code looked like this:</p>
+<pre><code>if immediate mode:
+    return program[pc + offset]
+else:
+    return program[program[pc + offset]]
+</code></pre><p>My write code: <code>program[arg] = value</code></p>
+<p>And my &ldquo;read&rdquo; code just said <code>print(arg)</code> since the argument parsing code was
+supposed to get the right value.</p>
+<p>And since I hardcoded &ldquo;write&rdquo; parameters to be immediate mode, I was
+inadvertently doubling up the address calls and getting the right answer in the
+process.</p>
+<h2 id="the-solution">The Solution</h2>
+<p>I eventually read every word of the instructions and realized that I had it
+backwards. The main thing to come out of this issue was that I added a
+<code>write_arg()</code> method instead of trying to have a single method do both. The two
+functions now look like this (with the included relative base):</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py">    <span class="k">def</span> <span class="nf">get_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">pc_offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">+</span><span class="n">pc_offset</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">+</span><span class="n">pc_offset</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">+</span><span class="n">pc_offset</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">relative_base</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_arg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">pc_offset</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">+</span><span class="n">pc_offset</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pc</span><span class="o">+</span><span class="n">pc_offset</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">relative_base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">program</span><span class="p">[</span><span class="n">location</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</code></pre></div><p>It&rsquo;s also worth noting that I&rsquo;m now using a dictionary implementation of
+memory instead of a list due to the extended memory requirement. With this big
+misstep out of the way, the rest of the puzzle came along quickly. I&rsquo;m simply
+tracking the relative base at the instance level and opcode 9 adjusts it as
+necessary. The code above shows how the relative base affects reading/writing
+parameters.</p>
+<h2 id="the-takeaway">The Takeaway</h2>
+<p>Time and time again, I learn the same lesson when debugging programming issues.
+That lesson is best described by a quote from Moira, a character in Overwatch:</p>
+<p>&ldquo;When faced with a setback, we must challenge our assumptions.&rdquo;</p>
+<p>Duly noted.</p>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a></em></p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

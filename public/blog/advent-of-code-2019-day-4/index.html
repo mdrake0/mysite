@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 4 Intro This one wasn&rsquo;t too bad, so I&rsquo;m gonna get right to it. You can find my full solutions repo here.
+Solution The three components of this puzzle aren&rsquo;t too bad. To find whether a number has adjacent digits that are the same, you can simply pull the last digit and loop your way through the number using modulo (testing for equality at each step).">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 4" />
+<meta property="og:description" content="Advent of Code 2019 - Day 4 Intro This one wasn&rsquo;t too bad, so I&rsquo;m gonna get right to it. You can find my full solutions repo here.
+Solution The three components of this puzzle aren&rsquo;t too bad. To find whether a number has adjacent digits that are the same, you can simply pull the last digit and loop your way through the number using modulo (testing for equality at each step)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-4/" />
+<meta property="article:published_time" content="2019-12-09T21:59:34-05:00" />
+<meta property="article:modified_time" content="2019-12-09T21:59:34-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 4 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-4/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 4
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Mon Dec 9 2019 21:59:34 EST'>Dec 9, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-4">Advent of Code 2019 - Day 4</h1>
+<h2 id="intro">Intro</h2>
+<p>This one wasn&rsquo;t too bad, so I&rsquo;m gonna get right to it. You can find
+my full solutions repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>The three components of this puzzle aren&rsquo;t too bad. To find whether a number has
+adjacent digits that are the same, you can simply pull the last digit and loop
+your way through the number using modulo (testing for equality at each step).</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">has_adjacent_digits</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="k">while</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last_digit</span> <span class="o">=</span> <span class="n">cur_digit</span>
+        <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">last_digit</span> <span class="o">==</span> <span class="n">cur_digit</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div><p>Determining whether the digits are monotonically decreasing is done in a similar
+way, the test is just greater than instead of equality.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">is_decreasing</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="k">while</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last_digit</span> <span class="o">=</span> <span class="n">cur_digit</span>
+        <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="n">cur_digit</span> <span class="o">&gt;</span> <span class="n">last_digit</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div><p>Testing a number to make sure that it has a &ldquo;strict&rdquo; double (two matching digits
+that are not part of a larger matching sequence) was a little trickier but not
+too bad. I didn&rsquo;t have too hard of a time solving it, but I&rsquo;m not really <em>happy</em>
+with the form of the code. As it stands, this function feels a bit sloppy and
+I&rsquo;m sure there&rsquo;s a better way to accomplish this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">has_strict_double</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+    <span class="n">trail_digit</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">while</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last_digit</span> <span class="o">=</span> <span class="n">cur_digit</span>
+        <span class="n">cur_digit</span> <span class="o">=</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">10</span>
+        <span class="c1"># If there is a next digit, check that it and the trailing digit</span>
+        <span class="c1"># aren&#39;t the same as cur_digit.</span>
+        <span class="k">if</span> <span class="n">last_digit</span> <span class="o">==</span> <span class="n">cur_digit</span> <span class="ow">and</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">future_digit</span> <span class="o">=</span> <span class="p">((</span><span class="n">number</span> <span class="o">//</span> <span class="mi">10</span><span class="p">)</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cur_digit</span> <span class="o">!=</span> <span class="n">future_digit</span> <span class="ow">and</span> <span class="n">cur_digit</span> <span class="o">!=</span> <span class="n">trail_digit</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        <span class="c1"># If this is the last digit, check the trailing digit against </span>
+        <span class="c1"># cur_digit.</span>
+        <span class="k">elif</span> <span class="n">last_digit</span> <span class="o">==</span> <span class="n">cur_digit</span> <span class="ow">and</span> <span class="n">trail_digit</span> <span class="o">!=</span> <span class="n">cur_digit</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">//</span> <span class="mi">10</span>
+        <span class="n">trail_digit</span> <span class="o">=</span> <span class="n">last_digit</span>
+    <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div><p>The counting part is simple. Loop from the lower bound to the upper and test the
+criteria at each number. Increase the running totals for values that meet the
+criteria. Bam.</p>
+<p>Again, you can find  my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

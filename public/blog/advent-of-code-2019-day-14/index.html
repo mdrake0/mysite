@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 14 Find my full solution repo here.
+Think Before You Code In order to avoid the mistake I made on day 12, I spent a while thinking about the proper approach to this problem before writing a single line of code. My main insights were:
+ Each chemical can only be created by a single reaction. This significantly reduces the complexity of the problem, because you don&rsquo;t have to compare different ways of producing a chemical.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 14" />
+<meta property="og:description" content="Advent of Code 2019 - Day 14 Find my full solution repo here.
+Think Before You Code In order to avoid the mistake I made on day 12, I spent a while thinking about the proper approach to this problem before writing a single line of code. My main insights were:
+ Each chemical can only be created by a single reaction. This significantly reduces the complexity of the problem, because you don&rsquo;t have to compare different ways of producing a chemical." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-14/" />
+<meta property="article:published_time" content="2020-01-01T14:29:00-05:00" />
+<meta property="article:modified_time" content="2020-01-01T14:29:00-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 14 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-14/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 14
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Wed Jan 1 2020 14:29:00 EST'>Jan 1, 2020</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-14">Advent of Code 2019 - Day 14</h1>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+<h2 id="think-before-you-code">Think Before You Code</h2>
+<p>In order to avoid the mistake I made on <a href="https://www.mattdrake.dev/blog/advent-of-code-2019-day-12/">day 12</a>,
+I spent a while thinking about the proper approach to this problem before
+writing a single line of code. My main insights were:</p>
+<ol>
+<li>Each chemical can only be <em>created</em> by a single reaction. This
+<strong>significantly</strong> reduces the complexity of the problem, because you don&rsquo;t have
+to compare different ways of producing a chemical.</li>
+<li>Given (1), you can model fuel&rsquo;s supply chain as a directed graph of
+reactions, where each child node holds info about the reaction (since there can
+only be one) that creates each reagent (input) of the current reaction.</li>
+</ol>
+<p>I modeled this graph using the following class definitions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">class</span> <span class="nc">Chemical</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">count</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+
+<span class="k">class</span> <span class="nc">Reaction</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reagents</span><span class="p">,</span> <span class="n">product</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reagents</span> <span class="o">=</span> <span class="n">reagents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product</span> <span class="o">=</span> <span class="n">product</span>
+
+
+<span class="k">class</span> <span class="nc">ReactionNode</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reaction</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reaction</span> <span class="o">=</span> <span class="n">reaction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div><h2 id="building-a-graph">Building a Graph</h2>
+<p>With a list of <code>Reaction</code>s given by the puzzle input, I set to building the
+graph with a recursive approach. Some reactions are duplicated, since each
+chemical is traced all the way back to its base ORE. However, I think that&rsquo;s an
+acceptable tradeoff given how much easier it is to reason about the problem with
+a data structure that fits the problem.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">build_graph</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">chemical</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+    <span class="n">reaction</span> <span class="o">=</span> <span class="n">reactions</span><span class="p">[</span><span class="n">find_reaction</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">chemical</span><span class="p">)]</span>
+    <span class="n">cur_node</span> <span class="o">=</span> <span class="n">ReactionNode</span><span class="p">(</span><span class="n">reaction</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cur_node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">reagents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&#34;ORE&#34;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">for</span> <span class="n">reagent</span> <span class="ow">in</span> <span class="n">reaction</span><span class="o">.</span><span class="n">reagents</span><span class="p">:</span>
+        <span class="n">build_graph</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">reagent</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">cur_node</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cur_node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">product</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&#34;FUEL&#34;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cur_node</span>
+
+<span class="c1"># List of `Reaction`s</span>
+<span class="n">reactions</span> <span class="o">=</span> <span class="n">prep_input</span><span class="p">(</span><span class="s2">&#34;./input/day14.txt&#34;</span><span class="p">)</span>
+<span class="n">graph_root</span> <span class="o">=</span> <span class="n">build_graph</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="s2">&#34;FUEL&#34;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+</code></pre></div><h2 id="at-what-cost">At What Cost?</h2>
+<p>Now that I had a working data structure, all I really have to do is traverse the
+graph and sum the costs. I again used a recursive approach to this by priming a
+dictionary of &ldquo;costs&rdquo; with my goal (a single unit of fuel) and then traversed
+the graph.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">calculate_cost</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="n">product_cost</span> <span class="o">=</span> <span class="n">costs</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">product</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+    <span class="n">product_yield</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">product</span><span class="o">.</span><span class="n">count</span>
+    <span class="n">reaction_ct</span> <span class="o">=</span> <span class="n">product_cost</span> <span class="o">//</span> <span class="n">product_yield</span>
+    <span class="k">if</span> <span class="n">product_cost</span> <span class="o">%</span> <span class="n">product_yield</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">reaction_ct</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">costs</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">product</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">-=</span> <span class="n">product_yield</span> <span class="o">*</span> <span class="n">reaction_ct</span>
+
+    <span class="k">for</span> <span class="n">reagent</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">reagents</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">costs</span><span class="p">[</span><span class="n">reagent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">reagent</span><span class="o">.</span><span class="n">count</span> <span class="o">*</span> <span class="n">reaction_ct</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">costs</span><span class="p">[</span><span class="n">reagent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">reagent</span><span class="o">.</span><span class="n">count</span> <span class="o">*</span> <span class="n">reaction_ct</span>
+
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+        <span class="n">calculate_cost</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+
+<span class="n">costs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;FUEL&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">calculate_cost</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">graph_root</span><span class="p">)</span>
+<span class="n">min_ore</span> <span class="o">=</span> <span class="n">costs</span><span class="p">[</span><span class="s2">&#34;ORE&#34;</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;part 1: &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">min_ore</span><span class="p">))</span>
+</code></pre></div><p>This function calculates each cost in terms of the child reactions and does so
+until getting to the deepest nodes, which have &ldquo;ORE&rdquo; as inputs.</p>
+<h2 id="now-try-one-trillion">Now Try One Trillion</h2>
+<p>I used the same method of passing cost requirements in terms of fuel to the cost
+function for part 2, with a twist. I ran a binary search to find the optimal
+fuel output by checking that I had maximized the ore usage and then printing
+<code>mid</code> (the target fuel output) as the solution.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">low</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">high</span> <span class="o">=</span> <span class="mi">1000000000000</span>
+<span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="k">while</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">costs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;FUEL&#34;</span><span class="p">:</span> <span class="p">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">calculate_cost</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">graph_root</span><span class="p">)</span>
+    <span class="n">ore_diff</span> <span class="o">=</span> <span class="mi">1000000000000</span> <span class="o">-</span> <span class="n">costs</span><span class="p">[</span><span class="s2">&#34;ORE&#34;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ore_diff</span> <span class="o">&lt;</span> <span class="n">min_ore</span> <span class="ow">and</span> <span class="n">ore_diff</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">ore_diff</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;part 2: &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span>
+</code></pre></div><p>This was a fantastic puzzle! Also, I&rsquo;m now officially more than halfway done -
+technically I have been since finishing day 13 part 2, but I didn&rsquo;t point it out
+in that post. :)</p>
+<p><em>Find my full solution repo <a href="https://github.com/mattcdrake/aoc19-python">here</a>.</em></p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

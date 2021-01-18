@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 5 Intro Day 5 required some additions to my Intcode computer - namely jumping and comparison operators. The puzzle also required me to implement support for parameter and immediate modes depending on the values left of the raw opcode.
+Let&rsquo;s get to it! As always, you can find my full solutions repo here.
+Solution The first step in extending capability is to support parameter and immediate modes for arguments.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 5" />
+<meta property="og:description" content="Advent of Code 2019 - Day 5 Intro Day 5 required some additions to my Intcode computer - namely jumping and comparison operators. The puzzle also required me to implement support for parameter and immediate modes depending on the values left of the raw opcode.
+Let&rsquo;s get to it! As always, you can find my full solutions repo here.
+Solution The first step in extending capability is to support parameter and immediate modes for arguments." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-5/" />
+<meta property="article:published_time" content="2019-12-10T21:58:39-05:00" />
+<meta property="article:modified_time" content="2019-12-10T21:58:39-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 5 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-5/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 5
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Dec 10 2019 21:58:39 EST'>Dec 10, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-5">Advent of Code 2019 - Day 5</h1>
+<h2 id="intro">Intro</h2>
+<p>Day 5 required some additions to my Intcode computer - namely jumping and
+comparison operators. The puzzle also required me to implement support for
+parameter and immediate modes depending on the values left of the raw opcode.</p>
+<p>Let&rsquo;s get to it! As always, you can find my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>The first step in extending capability is to support parameter and immediate
+modes for arguments. I addressed this by using a fixed size list and padding the
+extra space with 0&rsquo;s (as the instructions outline). This fits all cases nicely
+since missing mode digits indicate a 0 and opcodes that won&rsquo;t use the extra 0&rsquo;s
+aren&rsquo;t bothered by their inclusion in the data structure.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">get_param_modes</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">value</span> <span class="o">//</span> <span class="mi">100</span>
+    <span class="n">param_modes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)]</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">param_modes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">param_modes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">param_modes</span>
+</code></pre></div><p>I&rsquo;m taking a <em>similar</em> one-size-fits-all approach to the argument situation. By
+using the mode information, I can prep the arguments so that the opcode portion
+of the code doesn&rsquo;t have to worry about this detail.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">parse_args</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">opcode</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">param_modes</span><span class="p">):</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Opcodes w/ 1 arg</span>
+    <span class="k">if</span> <span class="n">opcode</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">param_modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Opcodes w/ 2 or 3 args</span>
+    <span class="k">elif</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span> <span class="k">if</span> <span class="n">param_modes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">2</span><span class="p">]]</span> <span class="k">if</span> <span class="n">param_modes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># Opcodes w/ 3 args</span>
+        <span class="k">if</span> <span class="n">opcode</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+            <span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">program</span><span class="p">[</span><span class="n">pc</span><span class="o">+</span><span class="mi">3</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="n">args</span>
+</code></pre></div><p>Implementing the new opcodes are pretty straightforward, although some of the
+finer points require carefully reviewing the spec. Right now, I have my
+<a href="https://github.com/mattcdrake/aoc19-python/blob/master/day5.py">implementation</a>
+as a large <code>if-elif-else</code> chain but it&rsquo;s starting to getunpleasant to look at.
+If I hit another puzzle that requires Intcode, I&rsquo;ll refactor the opcode sections
+into individual functions. I&rsquo;m not sure how that&rsquo;ll look yet, but that&rsquo;s a
+problem for the future. (Is this&hellip;tech debt?)</p>
+<p>Onward to day 6 (on December 10th&hellip;)!</p>
+<p>As always, you can find  my full solutions repo
+<a href="https://github.com/mattcdrake/aoc19-python">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

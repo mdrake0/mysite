@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="Matt Drake">
+<meta name="description" content="Advent of Code 2019 - Day 1 Background Advent of Code is an awesome annual event where people around the world practice their programming chops by solving fun puzzles. I used last year&rsquo;s AoC to learn JavaScript and I had a great experience (even though I didn&rsquo;t finish!). This year I&rsquo;m using AoC as an opportunity to learn Go!
+I&rsquo;m working through Learn Go with Tests to learn the concepts and applying them by solving AoC&rsquo;s daily puzzle.">
+
+<meta property="og:title" content="Advent of Code 2019 - Day 1" />
+<meta property="og:description" content="Advent of Code 2019 - Day 1 Background Advent of Code is an awesome annual event where people around the world practice their programming chops by solving fun puzzles. I used last year&rsquo;s AoC to learn JavaScript and I had a great experience (even though I didn&rsquo;t finish!). This year I&rsquo;m using AoC as an opportunity to learn Go!
+I&rsquo;m working through Learn Go with Tests to learn the concepts and applying them by solving AoC&rsquo;s daily puzzle." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mattdrake.dev/blog/advent-of-code-2019-day-1/" />
+<meta property="article:published_time" content="2019-12-03T20:30:32-05:00" />
+<meta property="article:modified_time" content="2019-12-03T20:30:32-05:00" />
+
+
+<title>
+
+
+     Advent of Code 2019 - Day 1 
+
+</title>
+<link rel="canonical" href="https://mattdrake.dev/blog/advent-of-code-2019-day-1/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/pygments.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/favicon.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+                
+                
+                
+                
+                
+                    
+                
+                
+                <a href="/"><img class="avatar" src="/img/avatar.jpg" srcset="https://mattdrake.dev/img/avatar.jpg 1x"></a>
+            
+            <a href="/"><div class="name">Matt Drake</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-blog"><a href="https://mattdrake.dev/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-about"><a href="https://mattdrake.dev/fixed/about"><span>About</span></a></li>
+                    
+                        <li class="nav-bookshelf"><a href="https://mattdrake.dev/fixed/bookshelf"><span>Bookshelf</span></a></li>
+                    
+                        <li class="nav-"><a href="https://github.com/mattcdrake"><span>Code</span></a></li>
+                    
+                        <li class="nav-"><a href="https://twitter.com/mattdrake_"><span>Twitter</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/mattcdrake" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+            <a href="//twitter.com/mattdrake_" target="_blank" rel="noopener"><img class="icon" src="/img/twitter.svg" alt="twitter" /></a>
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Advent of Code 2019 - Day 1
+
+</div>
+
+                    <div class="initials"><a href="https://mattdrake.dev"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Dec 3 2019 20:30:32 EST'>Dec 3, 2019</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                <h1 id="advent-of-code-2019---day-1">Advent of Code 2019 - Day 1</h1>
+<h2 id="background">Background</h2>
+<p><a href="https://adventofcode.com">Advent of Code</a> is an awesome annual event where
+people around the world practice their programming chops by solving fun
+puzzles. I used last year&rsquo;s AoC to learn <a href="https://github.com/mattcdrake/aoc18">JavaScript</a>
+and I had a great experience (even though I didn&rsquo;t finish!). This year I&rsquo;m
+using AoC as an opportunity to learn Go!</p>
+<p>I&rsquo;m working through <a href="https://quii.gitbook.io/learn-go-with-tests/">Learn Go with Tests</a>
+to learn the concepts and applying them by solving AoC&rsquo;s daily puzzle. So if
+you see some solution where it would be <strong>way better</strong> to use something else,
+it&rsquo;s possible that I haven&rsquo;t gotten there yet. It&rsquo;s also possible that I just
+didn&rsquo;t think of it! Either way, feel free to point it out to me on
+<a href="https://twitter.com/mdrake__">Twitter</a>.</p>
+<p>You can find my solutions repo <a href="https://github.com/mattcdrake/aoc19-go">here</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>The fuel calculation is straightforward enough. The most challenging part for
+me was simply figuring out how to read files with Go. This is the pattern I
+settled on, it seems fine (as long as my assumptions about the input data hold</p>
+<ul>
+<li>famous last words).</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">day1Puzzle1</span><span class="p">()</span> <span class="p">(</span><span class="nx">sum</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;./input/day1.txt&#34;</span><span class="p">)</span>
+	<span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+
+	<span class="nx">scanner</span> <span class="o">:=</span> <span class="nx">bufio</span><span class="p">.</span><span class="nf">NewScanner</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nx">scanner</span><span class="p">.</span><span class="nf">Scan</span><span class="p">()</span> <span class="p">{</span>
+		<span class="nx">val</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Atoi</span><span class="p">(</span><span class="nx">scanner</span><span class="p">.</span><span class="nf">Text</span><span class="p">())</span>
+		<span class="nf">check</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+		<span class="nx">sum</span> <span class="o">+=</span> <span class="nf">calcModuleFuel</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="nx">sum</span>
+<span class="p">}</span>
+</code></pre></div><p>Throughout all of the puzzles, my input handling code isn&rsquo;t going to focus on
+potential edge cases like you would in production software. This would be more
+important if we had to run the code using black box input like HackerRank.</p>
+<p>The second part is also pretty simple to solve if you broke out the calculation
+into a function - you can just recursively call <code>calcModuleFuel</code> on the
+additional fuel required until it hits zero.</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">calcModuleFuel</span><span class="p">(</span><span class="nx">mass</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">fuel</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fuel</span> <span class="p">=</span> <span class="p">(</span><span class="nx">mass</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span>
+	<span class="k">if</span> <span class="nx">fuel</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">fuel</span> <span class="p">=</span> <span class="mi">0</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">calcTotalModuleFuel</span><span class="p">(</span><span class="nx">mass</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">fuel</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">nextFuel</span> <span class="o">:=</span> <span class="nf">calcModuleFuel</span><span class="p">(</span><span class="nx">mass</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="nx">nextFuel</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">fuel</span> <span class="o">+=</span> <span class="nx">nextFuel</span>
+		<span class="nx">nextFuel</span> <span class="p">=</span> <span class="nf">calcModuleFuel</span><span class="p">(</span><span class="nx">nextFuel</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span>
+<span class="p">}</span>
+</code></pre></div><p>This was a nice puzzle to get the ball rolling and it helped me smooth out the
+Go file I/O thing early. Looking forward to the additional puzzles.</p>
+<p>You can find my solution repo <a href="https://github.com/mattcdrake/aoc19-go">here</a>.</p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

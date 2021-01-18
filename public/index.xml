@@ -1,42 +1,234 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Matt Drake</title>
-    <link>https://mattcdrake.com/</link>
+    <link>https://mattdrake.dev/</link>
     <description>Recent content on Matt Drake</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Aug 2019 11:47:09 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 02 Dec 2020 01:51:56 -0500</lastBuildDate>
     
-	<atom:link href="https://mattcdrake.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mattdrake.dev/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Placeholder so the site builds</title>
-      <link>https://mattcdrake.com/blog/placeholder-so-the-site-builds/</link>
-      <pubDate>Mon, 26 Aug 2019 11:47:09 -0400</pubDate>
+      <title>Advent of Code 2020 - Day 2</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2020-day-2/</link>
+      <pubDate>Wed, 02 Dec 2020 01:51:56 -0500</pubDate>
       
-      <guid>https://mattcdrake.com/blog/placeholder-so-the-site-builds/</guid>
-      <description></description>
+      <guid>https://mattdrake.dev/blog/advent-of-code-2020-day-2/</guid>
+      <description>Advent of Code 2020 - Day 2 If you&amp;rsquo;re like Linus Torvalds, and you just want me to show you the code, check it out here!
+Intro This one requires some string searching to find out if a given character appears in the correct position.
+Day 2 My plan here was to break the raw string into semantic parts (lower bound, target character, password) and then utilize helper functions to do the validation.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2020 - Day 1</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2020-day-1/</link>
+      <pubDate>Wed, 02 Dec 2020 01:40:43 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2020-day-1/</guid>
+      <description>Advent of Code 2020 - Day 1 If you&amp;rsquo;re like Linus Torvalds, and you just want me to show you the code, check it out here!
+Intro Another year, another Advent of Code. Last year, I fell off after day 14. This year will be different!
+I&amp;rsquo;m going to tackle each day as soon as I can and post a short write-up about my solution.
+Day 1 This one was pretty simple for me.</description>
+    </item>
+    
+    <item>
+      <title>Why I Quit My Job and What&#39;s Next</title>
+      <link>https://mattdrake.dev/blog/why-i-quit-my-job-and-whats-next/</link>
+      <pubDate>Sun, 11 Oct 2020 18:50:07 -0400</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/why-i-quit-my-job-and-whats-next/</guid>
+      <description>Hi, I’m Matt Drake. I’m a network engineer turned data analyst turning software developer. A couple months ago, I left my public sector R&amp;amp;D job in order to work on a CS degree full-time and begin a new career as a software developer. Here, I&amp;rsquo;ll explain my short-term goals and my plan to achieve them.
+Motivation I started college after a 4-year detour in the US Army, where I was the sergeant in charge of a computer networking squad.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 14</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-14/</link>
+      <pubDate>Wed, 01 Jan 2020 14:29:00 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-14/</guid>
+      <description>Advent of Code 2019 - Day 14 Find my full solution repo here.
+Think Before You Code In order to avoid the mistake I made on day 12, I spent a while thinking about the proper approach to this problem before writing a single line of code. My main insights were:
+ Each chemical can only be created by a single reaction. This significantly reduces the complexity of the problem, because you don&amp;rsquo;t have to compare different ways of producing a chemical.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 13</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-13/</link>
+      <pubDate>Sun, 29 Dec 2019 23:44:56 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-13/</guid>
+      <description>Advent of Code 2019 - Day 13 Find my full solution repo here.
+Day 13&amp;rsquo;s puzzle wasn&amp;rsquo;t so bad, although I spent a long time debugging something really silly. I also made things much more complicated than they needed to be when determining how to move the joystick.
+Breakout! The data structure for this puzzle is similar to the one I used on the Space Police puzzle - a 2d grid with inverted y-axis.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 12</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-12/</link>
+      <pubDate>Sun, 29 Dec 2019 17:57:37 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-12/</guid>
+      <description>Advent of Code 2019 - Day 12 Find my full solution repo here.
+This was a nice puzzle, even though I got stuck on the second half for a couple days. I tried a couple wrong approaches to storing and looking up previous states - namely binary trees and dictionary keys with a try/catch lookup.
+Eventually, I caved and looked up a hint on reddit. One commenter laid out helpful insights (the main one being that the repeated state must be the initial state, because all future states are children of the first) in a way that the problem was still interesting to solve.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 11</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-11/</link>
+      <pubDate>Thu, 26 Dec 2019 21:01:28 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-11/</guid>
+      <description>Advent of Code 2019 - Day 11 Find my full solution repo here
+&amp;ldquo;I got 99 problems but an Intcode puzzle ain&amp;rsquo;t one.&amp;quot; Jay-Z, if he were doing Advent of Code.
+My Robot The main objects that you need to track for this puzzle are the robot and the hull. For the robot, I wrote a class that tracks position and a direction vector. I tracked the hull colors using a 2d list.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 10</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-10/</link>
+      <pubDate>Tue, 24 Dec 2019 22:51:46 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-10/</guid>
+      <description>Advent of Code 2019 - Day 10 Find my full solution repo here
+I enjoyed this puzzle quite a bit. I&amp;rsquo;m also happy that my arctangent skills are fresh thanks to some Unity3d tutorials I worked through a couple months ago.
+I started off by creating a 2d list representing the board and then logged all the asteroid positions. This made it easier to iterate through asteroids later since I wouldn&amp;rsquo;t have to find them first.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 9</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-9/</link>
+      <pubDate>Tue, 24 Dec 2019 00:08:07 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-9/</guid>
+      <description>Advent of Code 2019 - Day 9 Find my full solution repo here
+Debugging this puzzle was a complete nightmare for me. As is the case with most debugging stories, it was completely my fault all along.
+The Problem First, a while back, I thought that the instructions said &amp;ldquo;a parameter that you write to will always be in immediate mode.&amp;rdquo; The instructions actually say the exact opposite of that. So, when processing the parameter modes, I would hardcode the parameter mode to &amp;ldquo;immediate&amp;rdquo; for arguments that were supposed to be written to.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 8</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-8/</link>
+      <pubDate>Sun, 22 Dec 2019 22:59:48 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-8/</guid>
+      <description>Advent of Code 2019 - Day 8 Intro Day 8 was a refreshing break from the Intcode vm and it was exactly what I like out of programming puzzles: simple premise, straightforward, and short implementation time once you&amp;rsquo;ve devised a valid approach.
+As always, you can find my full solutions repo here.
+Solution For part one, I worked with a list of lists, with each inner list as a &amp;ldquo;layer&amp;rdquo; of data.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 7</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-7/</link>
+      <pubDate>Sun, 22 Dec 2019 22:17:00 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-7/</guid>
+      <description>Advent of Code 2019 - Day 7 Intro Day 7 brings another Intcode puzzle, so I finally bit the bullet and refactored my vm. I&amp;rsquo;m writing this after reading the prompt for day 9, so I&amp;rsquo;m getting the sense more refactoring might be coming soon. For now, let&amp;rsquo;s cover day 7&amp;rsquo;s solution.
+As always, you can find my full solutions repo here.
+Solution The main thing I&amp;rsquo;ve done to refactor my Intcode vm is to encapsulate it inside a class.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 6</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-6/</link>
+      <pubDate>Sun, 15 Dec 2019 21:44:34 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-6/</guid>
+      <description>Advent of Code 2019 - Day 6 Intro I just finished day 6 right before (checks watch) the day 16 puzzle comes out. Who&amp;rsquo;s counting? As always, you can find my full solutions repo here.
+Solution I knew that this was a tree problem but wanted to avoid building one for as long as I could. I solved the first part of the puzzle by with only a sorted list of orbit pairs.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 5</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-5/</link>
+      <pubDate>Tue, 10 Dec 2019 21:58:39 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-5/</guid>
+      <description>Advent of Code 2019 - Day 5 Intro Day 5 required some additions to my Intcode computer - namely jumping and comparison operators. The puzzle also required me to implement support for parameter and immediate modes depending on the values left of the raw opcode.
+Let&amp;rsquo;s get to it! As always, you can find my full solutions repo here.
+Solution The first step in extending capability is to support parameter and immediate modes for arguments.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 4</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-4/</link>
+      <pubDate>Mon, 09 Dec 2019 21:59:34 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-4/</guid>
+      <description>Advent of Code 2019 - Day 4 Intro This one wasn&amp;rsquo;t too bad, so I&amp;rsquo;m gonna get right to it. You can find my full solutions repo here.
+Solution The three components of this puzzle aren&amp;rsquo;t too bad. To find whether a number has adjacent digits that are the same, you can simply pull the last digit and loop your way through the number using modulo (testing for equality at each step).</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 3</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-3/</link>
+      <pubDate>Mon, 09 Dec 2019 21:35:12 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-3/</guid>
+      <description>Advent of Code 2019 - Day 3 Intro First things first, I stopped using Go and started using Python. You can find my new solutions repo here. I decided to stop using Go because I am also working through SICP in addition to Advent of Code and a stealthmode side project I&amp;rsquo;m working on. That&amp;rsquo;s all in addition to my fulltime job, so something had to give and I&amp;rsquo;m dropping Go for now.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 2</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-2/</link>
+      <pubDate>Tue, 03 Dec 2019 22:13:15 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-2/</guid>
+      <description>Advent of Code 2019 - Day 2 Intro This puzzle was a clever way of introducing the idea of opcodes, loading/storing values, and assembly in general to someone that may not have been exposed to it before. I watched a talk by the creator of Advent of Code this weekend and he made a point that he has to design these puzzles for someone that may never have taken a CS class before.</description>
+    </item>
+    
+    <item>
+      <title>Advent of Code 2019 - Day 1</title>
+      <link>https://mattdrake.dev/blog/advent-of-code-2019-day-1/</link>
+      <pubDate>Tue, 03 Dec 2019 20:30:32 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/advent-of-code-2019-day-1/</guid>
+      <description>Advent of Code 2019 - Day 1 Background Advent of Code is an awesome annual event where people around the world practice their programming chops by solving fun puzzles. I used last year&amp;rsquo;s AoC to learn JavaScript and I had a great experience (even though I didn&amp;rsquo;t finish!). This year I&amp;rsquo;m using AoC as an opportunity to learn Go!
+I&amp;rsquo;m working through Learn Go with Tests to learn the concepts and applying them by solving AoC&amp;rsquo;s daily puzzle.</description>
+    </item>
+    
+    <item>
+      <title>SICP - Section 1.2</title>
+      <link>https://mattdrake.dev/blog/sicp-section-1.2/</link>
+      <pubDate>Sun, 01 Dec 2019 20:04:16 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/sicp-section-1.2/</guid>
+      <description>Section 1.2 - Procedures and the Processes they Generate You can see all of my code here.
+Exercise 1.9 ; Version 1 (define (+ a b) (if (= a 0) b (inc (+ (dec a) b)))) ; Version 2 (define (+ a b) (if (= a 0) b (+ (dec a) (inc b)))) Version 1 expands in a way that is linearly recursive. The space requirement is a factor of n where n is the number supplied as the formal parameter a.</description>
+    </item>
+    
+    <item>
+      <title>SICP - Section 1.1.7</title>
+      <link>https://mattdrake.dev/blog/sicp-section-1.1.7/</link>
+      <pubDate>Sun, 01 Dec 2019 19:54:12 -0500</pubDate>
+      
+      <guid>https://mattdrake.dev/blog/sicp-section-1.1.7/</guid>
+      <description>SICP Notes &amp;amp; Exercises - Starting at 1.1.7 I started reading SICP this week. I found Eli Bendersky&amp;rsquo;s series of SICP reading notes while looking for exercise answers to compare mine to and thought it was a fantastic idea. Also this week, Nadia Eghbal&amp;rsquo;s blog post about making her own PhD introduced me to the idea of &amp;ldquo;learning in public&amp;rdquo;. So I&amp;rsquo;m going to synthesize these two ideas and document some of my own thoughts and exercise solutions.</description>
     </item>
     
     <item>
       <title>My Bookshelf</title>
-      <link>https://mattcdrake.com/fixed/bookshelf/</link>
+      <link>https://mattdrake.dev/fixed/bookshelf/</link>
       <pubDate>Wed, 26 Jun 2019 19:37:37 -0400</pubDate>
       
-      <guid>https://mattcdrake.com/fixed/bookshelf/</guid>
-      <description> This list primarily (but not strictly) includes things that I&amp;rsquo;ve read since starting this blog.
-Currently Reading  Structure and Interpretation of Computer Programs, Harold Ableson and Gerald Jay Sussman with Julie Sussman Learn Go with Tests, Chris James Music Theory for Computer Musicians, Michael Hewitt  Finished and Recommend  How to Solve It, George Pólya Circe, Madeline Miller  Finished and Don&amp;rsquo;t Recommend </description>
+      <guid>https://mattdrake.dev/fixed/bookshelf/</guid>
+      <description>I love to hear about what people read and recommend, so here are my lists.
+If I finish a book and I don&amp;rsquo;t like it, I just delete it from the list. I don&amp;rsquo;t want to make negative reviews - I might just not be the audience for a particular book.
+Currently Reading  Modern C, Jens Gustedt A Tour of C++, Bjarne Stroustrup How Linux Works, Brian Ward Salt, Fat, Acid, Heat: Mastering the Elements of Good Cooking, Samin Nosrat  Finished and Recommend  Don&amp;rsquo;t Make Me Think, Steve Krug Invisible Cities, Italo Calvino Deep Work, Cal Newport Increment Issue 11, &amp;ldquo;Teams&amp;rdquo; Eloquent JavaScript, 3rd Edition, Marjin Haverbeke The Mom Test, Rob Fitzpatrick The Soul of a New Machine, Tracy Kidder Meditations, Marcus Aurelius How to Solve It, George Pólya Circe, Madeline Miller Skin in the Game: Hidden Asymmetries in Daily Life, Nassim Nicholas Taleb The Lathe of Heaven, Ursula Le Guin Automate the Boring Stuff with Python, 2nd ed.</description>
     </item>
     
     <item>
       <title>About Me</title>
-      <link>https://mattcdrake.com/fixed/about/</link>
+      <link>https://mattdrake.dev/fixed/about/</link>
       <pubDate>Wed, 26 Jun 2019 19:30:05 -0400</pubDate>
       
-      <guid>https://mattcdrake.com/fixed/about/</guid>
-      <description>I&amp;rsquo;m Matt Drake. I like to solve problems, build things, and make music.</description>
+      <guid>https://mattdrake.dev/fixed/about/</guid>
+      <description>I&amp;rsquo;m Matt Drake. I&amp;rsquo;m a software developer in the Washington, D.C. metro area.
+For fun, I like to design games, read, and see live music. You can also find me at baseball games, nerding out with my awesome wife. Go Nats!</description>
     </item>
     
   </channel>
