@@ -12,8 +12,6 @@ particular book.
 ### Currently Reading
 
 - _How Linux Works_, Brian Ward
-- _Salt, Fat, Acid, Heat: Mastering the Elements of Good Cooking_, Samin Nosrat
-- _The Mind Illuminated_, John Yates, Matthew Immergut, and Jeremy Graves
 
 ### Finished and Recommend
 
