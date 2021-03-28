@@ -12,6 +12,8 @@ particular book.
 ### Currently Reading
 
 - _How Linux Works_, Brian Ward
+- _Cracking the Coding Interview_, Gayle Laakmann McDowell
+- _The Go Programming Language_, Alan A. A. Donovan & Brian W. Kernighan
 
 ### Finished and Recommend
 
