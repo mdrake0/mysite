@@ -14,6 +14,7 @@ particular book.
 - _How Linux Works_, Brian Ward
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 - _The Go Programming Language_, Alan A. A. Donovan & Brian W. Kernighan
+- _What Do You Care What Other People Think?_, Richard Feynman
 
 ### Finished and Recommend
 
