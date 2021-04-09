@@ -11,11 +11,10 @@ particular book.
 
 ### Currently Reading
 
-- _How Linux Works_, Brian Ward
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _The Go Programming Language_, Alan A. A. Donovan and Brian W. Kernighan
-- _What Do You Care What Other People Think?_, Richard Feynman
 - _The Pragmatic Programmer_, Andy Hunt and Dave Thomas
+- _What Do You Care What Other People Think?_, Richard Feynman
+- _Consider Phlebas_, Iain Banks
 
 ### Finished and Recommend
 
