@@ -11,9 +11,9 @@ particular book.
 
 ### Currently Reading
 
-- _How Linux Works_, Brian Ward
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 - _The Go Programming Language_, Alan A. A. Donovan and Brian W. Kernighan
+- _Consider Phlebas_, Iain Banks
 
 ### Finished and Recommend
 
@@ -30,3 +30,4 @@ particular book.
 - _Skin in the Game: Hidden Asymmetries in Daily Life_, Nassim Nicholas Taleb
 - _The Lathe of Heaven_, Ursula Le Guin
 - _Automate the Boring Stuff with Python, 2nd ed._, Al Sweigart
+
