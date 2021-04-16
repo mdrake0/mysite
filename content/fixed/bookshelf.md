@@ -12,7 +12,6 @@ particular book.
 ### Currently Reading
 
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _The Go Programming Language_, Alan A. A. Donovan and Brian W. Kernighan
 - _Consider Phlebas_, Iain Banks
 
 ### Finished and Recommend
