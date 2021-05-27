@@ -31,14 +31,9 @@ identifier = "bookshelf"
 url = "/fixed/bookshelf"
 
 [[menu.main]]
-name = "Code"
+name = "GitHub"
 weight = -90
 url = "https://github.com/mattcdrake"
-
-[[menu.main]]
-name = "Twitter"
-weight = -80
-url = "https://twitter.com/mattdrake_"
 
 [params]
 latestpostscount = 30

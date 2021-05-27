@@ -1,5 +1,5 @@
 ---
-title: "Why I Quit My Job and What's Next"
+title: "Why I Left My Job and What's Next"
 date: 2020-10-11T18:50:07-04:00
 draft: false
 ---
