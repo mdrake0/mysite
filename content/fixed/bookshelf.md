@@ -13,6 +13,8 @@ particular book.
 
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
 - _Bad Blood: Secrets and Lies in a Silicon Valley Startup_, John Carreyrou
+- _Console Wars: Sega, Nintendo, and the Battle that Defined a Generation_,
+  Blake J. Harris
 
 ### Finished and Recommend
 
