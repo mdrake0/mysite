@@ -12,7 +12,6 @@ particular book.
 ### Currently Reading
 
 - _Cracking the Coding Interview_, Gayle Laakmann McDowell
-- _Bad Blood: Secrets and Lies in a Silicon Valley Startup_, John Carreyrou
 - _Learn Go with Tests_, Chris James
 
 ### Finished and Recommend
