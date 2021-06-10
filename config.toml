@@ -25,15 +25,14 @@ identifier = "about"
 url = "/fixed/about"
 
 [[menu.main]]
-name = "Bookshelf"
+name = "GitHub"
 weight = -100
-identifier = "bookshelf"
-url = "/fixed/bookshelf"
+url = "https://github.com/drake6m"
 
 [[menu.main]]
-name = "GitHub"
+name = "Twitter"
 weight = -90
-url = "https://github.com/mattcdrake"
+url = "https://twitter.com/drake6m"
 
 [params]
 latestpostscount = 30
@@ -41,5 +40,5 @@ author = "Matt Drake"
 dateform = "2 Jan 2006"
 avatar = "img/avatar.jpg"
 noshowreadtime = true
-github = "//github.com/mattcdrake"
-twitter = "//twitter.com/mattdrake_"
+github = "//github.com/drake6m"
+twitter = "//twitter.com/drake6m"
