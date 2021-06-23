@@ -10,13 +10,18 @@ pygmentsCodefences = true
 
 [permalinks]
 blog = "blog/:slug/"
-projects = "projects/:slug/"
 
 [[menu.main]]
 name = "Blog"
-weight = -120
+weight = -130
 identifier = "blog"
 url = "/blog/"
+
+[[menu.main]]
+name = "Projects"
+weight = -120
+identifier = "projects"
+url = "/fixed/projects"
 
 [[menu.main]]
 name = "About"
