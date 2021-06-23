@@ -4,8 +4,6 @@ date: 2021-06-23T17:15:42-04:00
 draft: false
 ---
 
-**How I Make My Site**
-
 My site is pretty minimalist. It’s just a static site - no dynamic content, no
 tracking[1], and no client-side JS at all. That being said, I’m not digging
 around my text editor opening and closing `<p>` tags by hand. I’ve done that for
@@ -38,7 +36,7 @@ one of the best programming blogs on the entire internet.
 
 Once the content is squared away, I’ll fire up Hugo’s dev server and make sure
 it looks right. Again, the hot reloading really shines here - any change is
-reflected immediately. Once a post looks good to me, I commit the repo and push
+reflected **immediately**. Once a post looks good to me, I commit the repo and push
 to my [GitHub](https://github.com/drake6m).
 
 **Hosting**
@@ -57,5 +55,5 @@ are live and served right away.
 That’s it! Once you get the process set up, it’s super easy to add content and
 update the site.
 
-I do use a Google font, and I assume they’re paying attention to the “Referer”
+[1] I do use a Google font, and I assume they’re paying attention to the “Referer”
 header if your browser sends one.
