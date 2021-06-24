@@ -37,7 +37,7 @@ one of the best programming blogs on the entire internet.
 Once the content is squared away, I’ll fire up Hugo’s dev server and make sure
 it looks right. Again, the hot reloading really shines here - any change is
 reflected **immediately**. Once a post looks good to me, I commit the repo and push
-to my [GitHub](https://github.com/drake6m).
+to [GitHub](https://github.com/drake6m).
 
 **Hosting**
 
