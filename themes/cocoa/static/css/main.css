@@ -725,6 +725,11 @@ section.main .content .markdown tbody tr:nth-child(odd) th {
   background-color: #f7f7f7;
 }
 
+.afterPostBlurb {
+  font-style: italic;
+  font-weight: bold;
+}
+
 .chroma {
   overflow-x: auto;
   overflow-y: hidden;

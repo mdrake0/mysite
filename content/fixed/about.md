@@ -12,4 +12,3 @@ keyboards.
 
 I also like baseball. You can often find me at baseball games, nerding out with
 my awesome wife. Go Nats!
-
