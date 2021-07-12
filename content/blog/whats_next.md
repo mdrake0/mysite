@@ -102,7 +102,7 @@ the stuff I build might be good!
 I’ve seen a lot of people talk about “learning in public” - I think this is a
 fantastic approach and I’m going to do it too. For me, there’s two parts -
 streaming and blogging. I’m going to stream on
-[Twitch](https://twitch.tv/mdrakedev) and my blogs will be right here. Between
+[Twitch](https://twitch.tv/drake6m) and my blogs will be right here. Between
 the two approaches, I can improve my technical communication skills (verbal and
 written) and have fun in the process.
 
