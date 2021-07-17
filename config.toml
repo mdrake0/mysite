@@ -48,5 +48,5 @@ avatar = "img/avatar-min.jpg"
 noshowreadtime = true
 github = "//github.com/drake6m"
 twitter = "//twitter.com/drake6m"
-afterPostBlurb = "I'm looking for early career SWE roles. Need one? Reach out at drake.mattc@gmail.com!"
+afterPostBlurb = ""
 cachebuster = true
