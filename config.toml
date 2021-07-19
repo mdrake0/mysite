@@ -35,11 +35,6 @@ name = "GitHub"
 weight = -100
 url = "https://github.com/drake6m"
 
-[[menu.main]]
-name = "Twitter"
-weight = -90
-url = "https://twitter.com/drake6m"
-
 [params]
 latestpostscount = 30
 author = "Matt Drake"
@@ -47,6 +42,5 @@ dateform = "2 Jan 2006"
 avatar = "img/avatar-min.jpg"
 noshowreadtime = true
 github = "//github.com/drake6m"
-twitter = "//twitter.com/drake6m"
 afterPostBlurb = ""
 cachebuster = true
